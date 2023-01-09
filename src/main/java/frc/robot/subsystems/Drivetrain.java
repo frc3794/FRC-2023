@@ -23,7 +23,6 @@ private final CANSparkMax m_frontRight = new CANSparkMax(DrivetrainConstants.kMo
 private final CANSparkMax m_rearRight = new CANSparkMax(DrivetrainConstants.kMotorPorts[3],
     CANSparkMaxLowLevel.MotorType.kBrushless);
 
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
