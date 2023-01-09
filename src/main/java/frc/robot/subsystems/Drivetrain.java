@@ -29,6 +29,7 @@ public class Drivetrain extends SubsystemBase {
   private final CANSparkMax m_rearRight = new CANSparkMax(DrivetrainConstants.kMotorPorts[3],
     CANSparkMaxLowLevel.MotorType.kBrushless);
 
+<<<<<<< HEAD
   private final AHRS gyro = new AHRS (SPI.Port.kMXP);
 
   private final MecanumDrive m_drive =
@@ -38,6 +39,9 @@ public class Drivetrain extends SubsystemBase {
     this.setDefaultCommand(new MoveDrivetrain(this));
   }
 
+=======
+    
+>>>>>>> 0905743d84ec181520cff9a02deb1f8bde7e5a55
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
