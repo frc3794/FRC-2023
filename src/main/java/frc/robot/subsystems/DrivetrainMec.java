@@ -13,9 +13,9 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DrivetrainConstants;
-import frc.robot.commands.MoveDrivetrain;
+import frc.robot.commands.MoveDrivetrainMec;
 
-public class Drivetrain extends SubsystemBase {
+public class DrivetrainMec extends SubsystemBase {
   
   private final CANSparkMax m_frontLeft = new CANSparkMax(DrivetrainConstants.kMotorPorts[0],
     CANSparkMaxLowLevel.MotorType.kBrushless);
@@ -34,8 +34,8 @@ public class Drivetrain extends SubsystemBase {
   private final MecanumDrive m_drive =
     new MecanumDrive(m_frontLeft, m_rearLeft, m_frontRight, m_rearRight);
 
-  public Drivetrain () {
-    this.setDefaultCommand(new MoveDrivetrain(this));
+  public DrivetrainMec () {
+    this.setDefaultCommand(new MoveDrivetrainMec(this));
   }
 
   @Override
