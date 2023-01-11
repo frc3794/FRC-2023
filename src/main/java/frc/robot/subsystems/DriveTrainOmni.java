@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DrivetrainConstants;
 import com.revrobotics.CANSparkMaxLowLevel;
+import com.revrobotics.RelativeEncoder;
 
 public class DriveTrainOmni extends SubsystemBase {
  //MOTORS
@@ -31,6 +32,8 @@ public class DriveTrainOmni extends SubsystemBase {
   private final MotorControllerGroup m_right = new MotorControllerGroup(m_frontRight, m_rearRight);
     
   //ENCODERS 
+  private RelativeEncoder m_leftEncoder;
+  private RelativeEncoder m_rightEncoder;
     
   private final DifferentialDrive m_drive = new DifferentialDrive(m_left, m_right);
 
