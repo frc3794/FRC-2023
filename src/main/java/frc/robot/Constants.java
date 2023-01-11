@@ -19,6 +19,12 @@ public final class Constants {
   }
 
 public static class DrivetrainConstants {
-    public static final int[] kMotorPorts = {0, 1, 2, 3, 4}; 
+    public static final int[] kMotorPorts = {0, 1, 2, 3, 4};
+    //ENCODERS
+    public static final double kEncoderResolution = 1024;
+    public static final int[][] kEncoderPorns = {{0,1},{2,3}};
+    //SPEED
+    public static final double kMaxSpeedMPS = 0;
+    public static final double kMaxAccelerationMPSS = 0;
   }
 }
