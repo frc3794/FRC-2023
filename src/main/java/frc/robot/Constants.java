@@ -19,6 +19,6 @@ public final class Constants {
   }
 
 public static class DrivetrainConstants {
-    public static final int[] kMotorPorts = { 1, 4, 2, 3 }; 
+    public static final int[] kMotorPorts = {0, 1, 2, 3, 4}; 
   }
 }
