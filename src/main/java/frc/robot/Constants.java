@@ -14,5 +14,7 @@ public static class DrivetrainConstants {
     //SPEED
     public static final double kMaxSpeedMPS = 0;
     public static final double kMaxAccelerationMPSS = 0;
+
+    public static final double kSensibilityPercent = 0.85;
   }
 }

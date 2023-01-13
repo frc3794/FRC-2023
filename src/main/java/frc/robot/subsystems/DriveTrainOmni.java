@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DrivetrainConstants;
+import frc.robot.commands.MoveDrivetrain;
+
 import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.RelativeEncoder;
 
@@ -41,11 +43,22 @@ public class DriveTrainOmni extends SubsystemBase {
     
   private final DifferentialDrive m_drive = new DifferentialDrive(m_left, m_right);
 
+  public DriveTrainOmni() {
+    m_left.setInverted(true);
 
-  public DriveTrainOmni() { }
+    this.setDefaultCommand(new MoveDrivetrain(this));
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+
+  public void arcadeDrive (double speed, double rot) {
+    m_drive.arcadeDrive(speed, rot);
+  }
+
+  public void stop () {
+    m_drive.arcadeDrive(0, 0);
   }
 }
