@@ -31,18 +31,20 @@ public class DriveTrainOmni extends SubsystemBase {
     CANSparkMaxLowLevel.MotorType.kBrushless);
 
   //MOTOR GROUPS
-  private final MotorControllerGroup m_left = new MotorControllerGroup(m_frontLeft, m_rearLeft);
-  private final MotorControllerGroup m_right = new MotorControllerGroup(m_frontRight, m_rearRight);
+  private final MotorControllerGroup m_leftMotors = new MotorControllerGroup(m_frontLeft, m_rearLeft);
+  private final MotorControllerGroup m_rightMotors = new MotorControllerGroup(m_frontRight, m_rearRight);
     
   //ENCODERS 
   private RelativeEncoder m_leftEncoder;
   private RelativeEncoder m_rightEncoder;
   private RelativeEncoder m_middleEncoder;
-    
-  private final DifferentialDrive m_drive = new DifferentialDrive(m_left, m_right);
 
+  private final DifferentialDrive m_drive;    
 
-  public DriveTrainOmni() { }
+  public DriveTrainOmni() { 
+    m_leftMotors.setInverted(true);
+    m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
+  }
 
   @Override
   public void periodic() {
