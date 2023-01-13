@@ -27,6 +27,9 @@ public class DriveTrainOmni extends SubsystemBase {
   private final CANSparkMax m_rearRight = new CANSparkMax(DrivetrainConstants.kMotorPorts[3],
     CANSparkMaxLowLevel.MotorType.kBrushless);
 
+  private final CANSparkMax m_middle = new CANSparkMax(DrivetrainConstants.kMotorPorts[4],
+    CANSparkMaxLowLevel.MotorType.kBrushless);
+
   //MOTOR GROUPS
   private final MotorControllerGroup m_left = new MotorControllerGroup(m_frontLeft, m_rearLeft);
   private final MotorControllerGroup m_right = new MotorControllerGroup(m_frontRight, m_rearRight);
@@ -34,6 +37,7 @@ public class DriveTrainOmni extends SubsystemBase {
   //ENCODERS 
   private RelativeEncoder m_leftEncoder;
   private RelativeEncoder m_rightEncoder;
+  private RelativeEncoder m_middleEncoder;
     
   private final DifferentialDrive m_drive = new DifferentialDrive(m_left, m_right);
 
