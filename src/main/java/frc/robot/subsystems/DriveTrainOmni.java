@@ -41,18 +41,12 @@ public class DriveTrainOmni extends SubsystemBase {
   private RelativeEncoder m_rightEncoder;
   private RelativeEncoder m_middleEncoder;
 
-<<<<<<< HEAD
-  public DriveTrainOmni() {
-    m_left.setInverted(true);
+  private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
+  
+  public DriveTrainOmni () {
+    m_leftMotors.setInverted(true);
 
     this.setDefaultCommand(new MoveDrivetrain(this));
-=======
-  private final DifferentialDrive m_drive;    
-
-  public DriveTrainOmni() { 
-    m_leftMotors.setInverted(true);
-    m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
->>>>>>> e32c6a3705b481404338e8e083fb9cca8471fb07
   }
 
   @Override
