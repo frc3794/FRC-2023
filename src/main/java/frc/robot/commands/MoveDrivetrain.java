@@ -6,13 +6,15 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.RobotContainer;
 import frc.robot.Constants.DrivetrainConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.DriveTrainOmni;
 
 public class MoveDrivetrain extends CommandBase {
   
-  private final DriveTrainOmni m_drivetrain;
+  private RobotContainer m_robotContainer;
+  private DriveTrainOmni m_drivetrain = m_robotContainer.gDriveTrainOmni();
 
   private final CommandXboxController m_driverController =
     new CommandXboxController(OperatorConstants.kDriverControllerPort);
