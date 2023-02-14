@@ -4,15 +4,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.MovileStage;
-import frc.robot.Constants.OperatorConstants;
+import frc.robot.Robot;
 
 public class MoveMovileStage extends CommandBase {
-  private final CommandXboxController m_subsystemController =
-   new CommandXboxController(OperatorConstants.kSubsystemControllerPort);
+  public static final CommandXboxController m_subsystemController = Robot.getSubsystemController();
+   
 
   public MoveMovileStage() {}
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
   
@@ -20,11 +19,11 @@ public class MoveMovileStage extends CommandBase {
 
   @Override
   public void execute() {
-    Trigger leftSubsystemTrigger = m_subsystemController.leftTrigger();
-    Trigger rightSubsystemTrigger = m_subsystemController.rightTrigger();
+    Trigger leftSubsystemBumper = m_subsystemController.leftBumper();
+    Trigger rightSubsystemBumper = m_subsystemController.rightBumper();
 
-    leftSubsystemTrigger.onTrue(MovileStage.RetractMovileStage());
-    rightSubsystemTrigger.onTrue(MovileStage.ExtendMovileStage());
+    leftSubsystemBumper.whileTrue(MovileStage.RetractMovileStage());
+    rightSubsystemBumper.whileTrue(MovileStage.ExtendMovileStage());
 
   }
 

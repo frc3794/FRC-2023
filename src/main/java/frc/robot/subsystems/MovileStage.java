@@ -11,7 +11,7 @@ public class MovileStage extends SubsystemBase {
    CANSparkMaxLowLevel.MotorType.kBrushless);
  
   public MovileStage() {}
-
+//Movile Stage Movement
   public static Command ExtendMovileStage(){
     m_movileStageMotor.set(.75);
     return null;
@@ -25,7 +25,7 @@ public class MovileStage extends SubsystemBase {
   public void periodic() {
     
   }
-//Sus
+//Sus ඞ
   public void stopMotors(){
     m_movileStageMotor.stopMotor();
   }
