@@ -13,8 +13,8 @@ import com.revrobotics.CANSparkMaxLowLevel;
 public class ArmJoint extends SubsystemBase {
   private static final CANSparkMax m_armJointMotor = new CANSparkMax(DrivetrainConstants.kMotorPorts[9],
    CANSparkMaxLowLevel.MotorType.kBrushless);
-  
-
+  private static final CANSparkMax m_wristMotor = new CANSparkMax(DrivetrainConstants.kMotorPorts[13], 
+  CANSparkMaxLowLevel.MotorType.kBrushless);
   public ArmJoint() {}
   //Arm Joint Movement
   public static Command ExtendArmJoint(){
@@ -23,6 +23,10 @@ public class ArmJoint extends SubsystemBase {
   }
   public static Command FlexArmJoint(){
     m_armJointMotor.set(-.60);
+    return null;
+  }
+  public static Command WristMotorFollow(){
+    m_wristMotor.follow(m_armJointMotor, true);
     return null;
   }
 
