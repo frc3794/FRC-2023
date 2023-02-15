@@ -8,7 +8,7 @@ public final class Constants {
   }
 
 public static class DrivetrainConstants {
-    public static final int[] kMotorPorts = {0, 1, 2, 3, 4, 5, 6, 7, 8};
+    public static final int[] kMotorPorts = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
     //ENCODERS
     public static final double kEncoderResolution = 1024;
     public static final int[][] kEncoderPorns = {{0,1},{2,3}};
@@ -17,5 +17,7 @@ public static class DrivetrainConstants {
     public static final double kMaxAccelerationMPSS = 0;
 
     public static final double kSensibilityPercent = 0.85;
+    //LIMIT SWITCHES
+    public static final int[] kDigitalInputPorts = {0,1};
   }
 }
