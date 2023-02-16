@@ -29,12 +29,13 @@ public class ArmJoint extends SubsystemBase {
     m_wristMotor.follow(m_armJointMotor, true);
     return null;
   }
-
-
-  
-
+ 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+  }
+
+  public static Command StopMotors(){
+    m_armJointMotor.stopMotor();
+    return null;
   }
 }

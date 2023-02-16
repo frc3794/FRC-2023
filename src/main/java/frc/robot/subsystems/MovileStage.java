@@ -26,7 +26,8 @@ public class MovileStage extends SubsystemBase {
     
   }
 //Sus ඞ
-  public void stopMotors(){
+  public static Command stopMotors(){
     m_movileStageMotor.stopMotor();
+    return null;
   }
 }

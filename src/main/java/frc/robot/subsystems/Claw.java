@@ -34,8 +34,9 @@ public void periodic() {
 
 }
 
-public void StopMotors(){
+public static Command StopMotors(){
     m_clawMotor.stopMotor();
+    return null;
 }
 }
 
