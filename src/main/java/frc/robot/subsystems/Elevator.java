@@ -9,9 +9,9 @@ import com.revrobotics.CANSparkMaxLowLevel;
 
 public class Elevator extends SubsystemBase {
   private static final CANSparkMax m_elevatorMotor1 =
-   new CANSparkMax(DrivetrainConstants.kMotorPorts[10], CANSparkMaxLowLevel.MotorType.kBrushless);
+   new CANSparkMax(DrivetrainConstants.kMotorPorts[2], CANSparkMaxLowLevel.MotorType.kBrushless);
    private static final CANSparkMax m_elevatorMotor2 =
-   new CANSparkMax(DrivetrainConstants.kMotorPorts[11], CANSparkMaxLowLevel.MotorType.kBrushless);
+   new CANSparkMax(DrivetrainConstants.kMotorPorts[13], CANSparkMaxLowLevel.MotorType.kBrushless);
 
   public Elevator() {}
 

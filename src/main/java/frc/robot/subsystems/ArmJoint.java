@@ -11,21 +11,21 @@ import frc.robot.Constants.DrivetrainConstants;
 import com.revrobotics.CANSparkMaxLowLevel;
 
 public class ArmJoint extends SubsystemBase {
-  private static final CANSparkMax m_armJointMotor = new CANSparkMax(DrivetrainConstants.kMotorPorts[9],
+  private static final CANSparkMax m_armJointMotor = new CANSparkMax(DrivetrainConstants.kMotorPorts[12],
    CANSparkMaxLowLevel.MotorType.kBrushless);
-  private static final CANSparkMax m_wristMotor = new CANSparkMax(DrivetrainConstants.kMotorPorts[13], 
+  private static final CANSparkMax m_wristMotor = new CANSparkMax(DrivetrainConstants.kMotorPorts[4], 
   CANSparkMaxLowLevel.MotorType.kBrushless);
   public ArmJoint() {}
   //Arm Joint Movement
   public static Command ExtendArmJoint(){
-    m_armJointMotor.set(.60);
+    m_armJointMotor.set(.5);
     return null;
   }
   public static Command FlexArmJoint(){
-    m_armJointMotor.set(-.60);
+    m_armJointMotor.set(-.5);
     return null;
   }
-  public static Command WristMotorFollow(){
+  public static Command WristMotorFollow()    {
     m_wristMotor.follow(m_armJointMotor, true);
     return null;
   }

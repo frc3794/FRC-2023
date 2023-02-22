@@ -17,16 +17,16 @@ import com.revrobotics.CANSparkMaxLowLevel;
 
 public class DriveTrainOmni extends SubsystemBase {
  //MOTORS
-  private final CANSparkMax m_frontLeft = new CANSparkMax(DrivetrainConstants.kMotorPorts[0],
+  private final CANSparkMax m_frontLeft = new CANSparkMax(DrivetrainConstants.kMotorPorts[14],
     CANSparkMaxLowLevel.MotorType.kBrushless);
     
-  private final CANSparkMax m_rearLeft = new CANSparkMax(DrivetrainConstants.kMotorPorts[1],
+  private final CANSparkMax m_rearLeft = new CANSparkMax(DrivetrainConstants.kMotorPorts[15],
     CANSparkMaxLowLevel.MotorType.kBrushless);
 
-  private final CANSparkMax m_frontRight = new CANSparkMax(DrivetrainConstants.kMotorPorts[2],
+  private final CANSparkMax m_frontRight = new CANSparkMax(DrivetrainConstants.kMotorPorts[1],
     CANSparkMaxLowLevel.MotorType.kBrushless);
 
-  private final CANSparkMax m_rearRight = new CANSparkMax(DrivetrainConstants.kMotorPorts[3],
+  private final CANSparkMax m_rearRight = new CANSparkMax(DrivetrainConstants.kMotorPorts[0],
     CANSparkMaxLowLevel.MotorType.kBrushless);
 
   /*private final CANSparkMax m_middle = new CANSparkMax(DrivetrainConstants.kMotorPorts[4],

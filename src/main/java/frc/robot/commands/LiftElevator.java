@@ -21,6 +21,7 @@ public class LiftElevator extends CommandBase {
     } else if(elevatorMovement < -0.1){
       Elevator.GoDown();
     }
+    
     if (m_bottomLimitSwitch.get()){
       Elevator.GoUp();
     } else if(m_topLimitSwitch.get()){
