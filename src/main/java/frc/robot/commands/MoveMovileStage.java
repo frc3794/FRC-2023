@@ -13,9 +13,7 @@ public class MoveMovileStage extends CommandBase {
   public MoveMovileStage() {}
 
   @Override
-  public void initialize() {
-  
-  }
+  public void initialize() {}
 
   @Override
   public void execute() {
@@ -25,9 +23,9 @@ public class MoveMovileStage extends CommandBase {
     leftSubsystemBumper.whileTrue(MovileStage.RetractMovileStage());
     rightSubsystemBumper.whileTrue(MovileStage.ExtendMovileStage());
 
+    MovileStage.GetLimits();
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     MovileStage.stopMotors();
