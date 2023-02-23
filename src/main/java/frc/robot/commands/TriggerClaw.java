@@ -10,7 +10,7 @@ import frc.robot.subsystems.ArmJoint;
 
 public class TriggerClaw extends CommandBase {
 
-    public static final CommandXboxController m_subsystemController = Robot.getSubsystemController();
+    private static final CommandXboxController m_subsystemController = Robot.getSubsystemController();
 
     public TriggerClaw() {}
 
