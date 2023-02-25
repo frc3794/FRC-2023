@@ -9,7 +9,7 @@ import frc.robot.Robot;
 public class MoveMovileStage extends CommandBase {
   public static final CommandXboxController m_subsystemController = Robot.getSubsystemController();
    
-
+  
   public MoveMovileStage() {}
 
   @Override

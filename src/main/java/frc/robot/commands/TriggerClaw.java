@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.Claw;
 import frc.robot.Robot;
-import frc.robot.subsystems.ArmJoint;
 
 public class TriggerClaw extends CommandBase {
 
@@ -15,9 +14,7 @@ public class TriggerClaw extends CommandBase {
     public TriggerClaw() {}
 
   @Override
-  public void initialize() {
-    ArmJoint.WristMotorFollow();  
-  }
+  public void initialize() {}
 
   @Override
   public void execute() {
@@ -29,13 +26,11 @@ public class TriggerClaw extends CommandBase {
 
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     Claw.StopMotors();
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;

@@ -14,7 +14,9 @@ public class ExtendArmJoint extends CommandBase {
   public ExtendArmJoint() {}
 
   @Override
-  public void initialize() {}
+  public void initialize() {
+    ArmJoint.WristMotorFollow(); /* */
+  }
 
   @Override
   public void execute() {
