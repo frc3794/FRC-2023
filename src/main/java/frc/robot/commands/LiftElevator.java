@@ -9,11 +9,11 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Constants.DrivetrainConstants;
 
 public class LiftElevator extends CommandBase {
-  private static CommandXboxController m_subsystemController = Robot.getSubsystemController();
-  private static DigitalInput m_topLimitSwitch = new DigitalInput(DrivetrainConstants.kDigitalInputPorts[1]);
-  private static DigitalInput m_bottomLimitSwitch = new DigitalInput(DrivetrainConstants.kDigitalInputPorts[2]);
-  private Trigger m_upDPad = m_subsystemController.povUp();
-  private Trigger m_downDPad = m_subsystemController.povDown();
+  private final CommandXboxController m_subsystemController = Robot.getSubsystemController();
+  private final DigitalInput m_topLimitSwitch = new DigitalInput(DrivetrainConstants.kDigitalInputPorts[1]);
+  private final DigitalInput m_bottomLimitSwitch = new DigitalInput(DrivetrainConstants.kDigitalInputPorts[2]);
+  private final Trigger m_upDPad = m_subsystemController.povUp();
+  private final Trigger m_downDPad = m_subsystemController.povDown();
 
   public void initialize() {}
 
@@ -21,24 +21,24 @@ public class LiftElevator extends CommandBase {
   public void execute() {
     double elevatorMovement = m_subsystemController.getLeftY();
     if (elevatorMovement > 0.1){
-      Elevator.GoUp();
+      Elevator.goUp();
     } else if(elevatorMovement < -0.1){
-      Elevator.GoDown();
+      Elevator.goDown();
     }
     
     if (m_bottomLimitSwitch.get()){
-      Elevator.GoUp();
+      Elevator.goUp();
     } else if(m_topLimitSwitch.get()){
-      Elevator.GoDown();
+      Elevator.goDown();
     }
 
-    m_upDPad.onTrue(Elevator.GoToPositiveLevel());
-    m_downDPad.onTrue(Elevator.GoToNegativeLevel());
+    m_upDPad.onTrue(Elevator.goToPositiveLevel());
+    m_downDPad.onTrue(Elevator.goToNegativeLevel());
   }
 
   @Override
   public void end(boolean interrupted) {
-    Elevator.StopMotors();
+    Elevator.stopMotors();
   }
 
   @Override

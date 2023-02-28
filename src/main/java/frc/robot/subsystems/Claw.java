@@ -17,13 +17,12 @@ public class Claw extends SubsystemBase{
     
 public Claw()  {}
 //Claw Movement 
-
-public static Command OpenClaw(){
+public static Command openClaw(){
     m_clawMotor.set(ControlMode.PercentOutput, rightTrigger * 0.3);
     return null;
 }
 
-public static Command CloseClaw(){
+public static Command closeClaw(){
     m_clawMotor.set(ControlMode.PercentOutput, leftTrigger * -0.3);
     return null;
 }
@@ -33,7 +32,7 @@ public void periodic() {
 
 }
 
-public static Command StopMotors(){
+public static Command stopMotors(){
     m_clawMotor.set(ControlMode.Disabled, 0);
     return null;
 }

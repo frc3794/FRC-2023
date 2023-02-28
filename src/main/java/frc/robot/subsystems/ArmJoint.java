@@ -20,15 +20,15 @@ public class ArmJoint extends SubsystemBase {
 
   public ArmJoint() {}
   //Arm Joint Movement
-  public static Command ExtendArmJoint(){
+  public static Command extendArmJoint(){
     m_armJointMotor.set(ControlMode.PercentOutput , speed * .25);
     return null;
   }
-  public static Command FlexArmJoint(){
+  public static Command flexArmJoint(){
     m_armJointMotor.set(ControlMode.PercentOutput, speed * .25);
     return null;
   }
-  public static Command WristMotorFollow()    {
+  public static Command wristMotorFollow()    {
     m_wristMotor.set(ControlMode.Follower, 12); /* */
     return null;
   }
@@ -36,7 +36,7 @@ public class ArmJoint extends SubsystemBase {
   @Override
   public void periodic() {}
 
-  public static Command StopMotors(){
+  public static Command stopMotors(){
     m_armJointMotor.set(ControlMode.Disabled, 0);
     m_wristMotor.set(ControlMode.Disabled, 0);
     return null;

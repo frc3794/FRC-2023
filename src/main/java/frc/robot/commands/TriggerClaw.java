@@ -9,7 +9,9 @@ import frc.robot.Robot;
 
 public class TriggerClaw extends CommandBase {
 
-    private static final CommandXboxController m_subsystemController = Robot.getSubsystemController();
+    private final CommandXboxController m_subsystemController = Robot.getSubsystemController();
+    private final Trigger leftSubsystemTrigger = m_subsystemController.leftTrigger();
+    private final Trigger rightSubsystemTrigger = m_subsystemController.rightTrigger();
 
     public TriggerClaw() {}
 
@@ -17,18 +19,15 @@ public class TriggerClaw extends CommandBase {
   public void initialize() {}
 
   @Override
-  public void execute() {
-    Trigger leftSubsystemTrigger = m_subsystemController.leftTrigger();
-    Trigger rightSubsystemTrigger = m_subsystemController.rightTrigger();
-
-    rightSubsystemTrigger.whileTrue(Claw.OpenClaw());
-    leftSubsystemTrigger.whileTrue(Claw.CloseClaw());
+  public void execute(){
+    rightSubsystemTrigger.whileTrue(Claw.openClaw());
+    leftSubsystemTrigger.whileTrue(Claw.closeClaw());
 
   }
 
   @Override
   public void end(boolean interrupted) {
-    Claw.StopMotors();
+    Claw.stopMotors();
   }
 
   @Override
