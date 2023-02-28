@@ -19,15 +19,15 @@ public class MovileStage extends SubsystemBase {
   public MovileStage() {}
 
 //Movile Stage Movement
-  public static Command ExtendMovileStage(){
+  public static Command extendMovileStage(){
     m_movileStageMotor.set(ControlMode.PercentOutput, .4);
     return null;
   }
-  public static Command RetractMovileStage(){
+  public static Command retractMovileStage(){
     m_movileStageMotor.set(ControlMode.PercentOutput, -.4);
     return null;
   }
-  public static void GetLimits(){
+  public static void getLimits(){
     if (m_forwardLimit.get() || m_reverseLimit.get()){
       isPressed = true;
     } else {

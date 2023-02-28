@@ -9,26 +9,28 @@ import frc.robot.Robot;
 import frc.robot.subsystems.ArmJoint;
 
 public class ExtendArmJoint extends CommandBase {
-  public static CommandXboxController m_subSystemController = Robot.getSubsystemController();
+  private final CommandXboxController m_subSystemController = Robot.getSubsystemController();
   
   public ExtendArmJoint() {}
 
   @Override
-  public void initialize() {}
+  public void initialize() {
+    ArmJoint.wristMotorFollow(); /* */
+  }
 
   @Override
   public void execute() {
     double armJointMovement = m_subSystemController.getRightY();
     if (armJointMovement > 0.1){
-      ArmJoint.ExtendArmJoint();
+      ArmJoint.extendArmJoint();
     } else if (armJointMovement < -0.1){
-      ArmJoint.FlexArmJoint();
+      ArmJoint.flexArmJoint();
     }
   }
 
   @Override
   public void end(boolean interrupted) {
-    ArmJoint.StopMotors();
+    ArmJoint.stopMotors();
   }
 
   @Override

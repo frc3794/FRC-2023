@@ -1,7 +1,3 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
@@ -29,6 +25,7 @@ public class DriveTrainOmni extends SubsystemBase {
   private final CANSparkMax m_rearRight = new CANSparkMax(DrivetrainConstants.kMotorPorts[0],
     CANSparkMaxLowLevel.MotorType.kBrushless);
 
+  //MOTOR GROUPS
   private final MotorControllerGroup m_leftMotors = new MotorControllerGroup(m_frontLeft, m_rearLeft);
   private final MotorControllerGroup m_rightMotors = new MotorControllerGroup(m_frontRight, m_rearRight);
     
