@@ -13,7 +13,7 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
-  private final DriveTrainOmni m_drive =  m_robotContainer.gDriveTrainOmni();
+  private final DriveTrainOmni m_drive =  new DriveTrainOmni();
   private final Command m_driveCommand = new MoveDrivetrain (m_drive);
   private static final CommandXboxController subsystemController = new CommandXboxController(1);
 

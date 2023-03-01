@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Constants.MStageConstants;
 
 public class MovileStage extends SubsystemBase {
-  private static final VictorSPX m_movileStageMotor = new VictorSPX(DrivetrainConstants.kMotorPorts[3]);
+  private static final VictorSPX m_movileStageMotor = new VictorSPX(4);
   private final static DigitalInput m_forwardLimit = new DigitalInput(MStageConstants.forwardLimit);
   private final static DigitalInput m_reverseLimit = new DigitalInput(MStageConstants.reverseLimit);
 

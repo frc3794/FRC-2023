@@ -13,8 +13,8 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 public class ArmJoint extends SubsystemBase {
-  private static final VictorSPX m_armJointMotor = new VictorSPX(DrivetrainConstants.kMotorPorts[12]);
-  private static final VictorSPX m_wristMotor = new VictorSPX(DrivetrainConstants.kMotorPorts[4]); /**/
+  private static final VictorSPX m_armJointMotor = new VictorSPX(6);
+  private static final VictorSPX m_wristMotor = new VictorSPX(7); /**/
   private static final CommandXboxController m_subsystemController = Robot.getSubsystemController();
   private static double speed = m_subsystemController.getRightY();
 

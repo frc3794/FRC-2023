@@ -15,9 +15,9 @@ import com.revrobotics.RelativeEncoder;
 public class Elevator extends SubsystemBase {
   private final static CommandXboxController m_subsystemController = Robot.getSubsystemController();
   private final static CANSparkMax m_elevatorMotor1 =
-   new CANSparkMax(DrivetrainConstants.kMotorPorts[2], CANSparkMaxLowLevel.MotorType.kBrushless);
+   new CANSparkMax(1, CANSparkMaxLowLevel.MotorType.kBrushless);
    private static final CANSparkMax m_elevatorMotor2 =
-   new CANSparkMax(DrivetrainConstants.kMotorPorts[13], CANSparkMaxLowLevel.MotorType.kBrushless);
+   new CANSparkMax(2, CANSparkMaxLowLevel.MotorType.kBrushless);
    private static final RelativeEncoder m_elevatorEncoder = m_elevatorMotor1.getEncoder();
    
    private static int level = 0;

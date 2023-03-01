@@ -9,8 +9,7 @@ import frc.robot.subsystems.DriveTrainOmni;
 
 public class MoveDrivetrain extends CommandBase {
   
-  private RobotContainer m_robotContainer;
-  private DriveTrainOmni m_drivetrain = m_robotContainer.gDriveTrainOmni();
+  private DriveTrainOmni m_drivetrain;
 
   private final CommandXboxController m_driverController =
     new CommandXboxController(OperatorConstants.kDriverControllerPort);

@@ -10,7 +10,7 @@ import frc.robot.Robot;
 import frc.robot.Constants.DrivetrainConstants;
 
 public class Claw extends SubsystemBase{
-    private static final VictorSPX m_clawMotor = new VictorSPX(DrivetrainConstants.kMotorPorts[5]);
+    private static final VictorSPX m_clawMotor = new VictorSPX(5);
     private static final CommandXboxController m_subsystemController = Robot.getSubsystemController();
     private static double rightTrigger = m_subsystemController.getRightTriggerAxis();
     private static double leftTrigger = m_subsystemController.getLeftTriggerAxis();
