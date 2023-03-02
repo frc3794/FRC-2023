@@ -2,28 +2,28 @@ package frc.robot;
 
 public final class Constants {
 
-  public static class OperatorConstants {
-    public static final int kDriverControllerPort = 0;
-    public static final int kSubsystemControllerPort = 1;
-  }
-
 public static class DrivetrainConstants {
     public static final int[] kMotorPorts = {7, 0, 12, 3, 4, 5, 12, 13, 14, };
     //ENCODERS
     public static final double kEncoderResolution = 1024;
-    public static final int[][] kEncoderPorns = {{0,1},{2,3}};
     //SPEED
-    public static final double kMaxSpeedMPS = 0;
-    public static final double kMaxAccelerationMPSS = 0;
-
     public static final double kSensibilityPercent = 0.85;
-    //LIMIT SWITCHES
-    public static final int[] kDigitalInputPorts = {0,1, 2, 3};
-
 }
   //MOVILE STAGE
   public static class MStageConstants {
-  public static final int forwardLimit = 2;
-  public static final int reverseLimit = 1;
+  public static final int kForwardLimit = 2;
+  public static final int kReverseLimit = 1;
+  public static final double kMovileStageSpeed = .4;
   }
+  //ARM JOINT
+  public static class ArmJointConstants {
+    public static final int kArmJointLimit = 3;
+    public static final double kArmJointSpeed = .25;
+  }
+  //ELEVATOR
+  public static class ElevatorConstants {
+    public static double[] kEncoderLimits = {0, 1000, 2000};
+    public static final double kElevatorSpeed = .45;  
+  }
+  
 }

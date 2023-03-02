@@ -2,29 +2,26 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-import frc.robot.Constants.DrivetrainConstants;
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Constants.MStageConstants;
 
 public class MovileStage extends SubsystemBase {
   private static final VictorSPX m_movileStageMotor = new VictorSPX(4);
-  private final static DigitalInput m_forwardLimit = new DigitalInput(MStageConstants.forwardLimit);
-  private final static DigitalInput m_reverseLimit = new DigitalInput(MStageConstants.reverseLimit);
+  private final static DigitalInput m_forwardLimit = new DigitalInput(MStageConstants.kForwardLimit);
+  private final static DigitalInput m_reverseLimit = new DigitalInput(MStageConstants.kReverseLimit);
 
   public static boolean isPressed;
   public MovileStage() {}
 
 //Movile Stage Movement
   public static Command extendMovileStage(){
-    m_movileStageMotor.set(ControlMode.PercentOutput, .4);
+    m_movileStageMotor.set(ControlMode.PercentOutput, MStageConstants.kMovileStageSpeed);
     return null;
   }
   public static Command retractMovileStage(){
-    m_movileStageMotor.set(ControlMode.PercentOutput, -.4);
+    m_movileStageMotor.set(ControlMode.PercentOutput, -MStageConstants.kMovileStageSpeed);
     return null;
   }
   public static void getLimits(){

@@ -8,23 +8,31 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Robot;
 import frc.robot.subsystems.ArmJoint;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
+import edu.wpi.first.wpilibj.DigitalInput;
+import frc.robot.Constants.ArmJointConstants;
+
 public class ExtendArmJoint extends CommandBase {
   private final CommandXboxController m_subSystemController = Robot.getSubsystemController();
+  private final DigitalInput m_armJointSwitch = new DigitalInput(ArmJointConstants.kArmJointLimit);
   
   public ExtendArmJoint() {}
 
   @Override
-  public void initialize() {
-    ArmJoint.wristMotorFollow(); /* */
-  }
+  public void initialize() {}
 
   @Override
   public void execute() {
-    double armJointMovement = m_subSystemController.getRightY();
-    if (armJointMovement > 0.1){
+    double m_armJointMovement = m_subSystemController.getRightY();
+    if (m_armJointMovement > 0.1){
       ArmJoint.extendArmJoint();
-    } else if (armJointMovement < -0.1){
+    } else if (m_armJointMovement < -0.1){
       ArmJoint.flexArmJoint();
+    }
+
+    if (m_armJointSwitch.get()){
+      ArmJoint.m_armJointMotor.set(ControlMode.PercentOutput, 0);
     }
   }
 

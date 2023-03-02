@@ -8,28 +8,23 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Robot;
-import frc.robot.Constants.DrivetrainConstants;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import frc.robot.Constants.ArmJointConstants;
 
 public class ArmJoint extends SubsystemBase {
-  private static final VictorSPX m_armJointMotor = new VictorSPX(6);
-  private static final VictorSPX m_wristMotor = new VictorSPX(7); /**/
+  public static final VictorSPX m_armJointMotor = new VictorSPX(6);
   private static final CommandXboxController m_subsystemController = Robot.getSubsystemController();
   private static double speed = m_subsystemController.getRightY();
 
   public ArmJoint() {}
   //Arm Joint Movement
   public static Command extendArmJoint(){
-    m_armJointMotor.set(ControlMode.PercentOutput , speed * .25);
+    m_armJointMotor.set(ControlMode.PercentOutput , speed * ArmJointConstants.kArmJointSpeed);
     return null;
   }
   public static Command flexArmJoint(){
-    m_armJointMotor.set(ControlMode.PercentOutput, speed * .25);
-    return null;
-  }
-  public static Command wristMotorFollow()    {
-    m_wristMotor.set(ControlMode.Follower, 12); /* */
+    m_armJointMotor.set(ControlMode.PercentOutput, speed * -ArmJointConstants.kArmJointSpeed);
     return null;
   }
  
@@ -38,7 +33,6 @@ public class ArmJoint extends SubsystemBase {
 
   public static Command stopMotors(){
     m_armJointMotor.set(ControlMode.Disabled, 0);
-    m_wristMotor.set(ControlMode.Disabled, 0);
     return null;
   }
 }

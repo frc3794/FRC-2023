@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import frc.robot.Robot;
-import frc.robot.Constants.DrivetrainConstants;
 
 public class Claw extends SubsystemBase{
     private static final VictorSPX m_clawMotor = new VictorSPX(5);
