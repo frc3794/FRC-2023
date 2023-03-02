@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.DrivetrainConstants;
 import frc.robot.commands.MoveDrivetrain;
 
 import com.revrobotics.CANSparkMaxLowLevel;
@@ -38,7 +37,8 @@ public class DriveTrainOmni extends SubsystemBase {
   private final Timer m_timer = new Timer ();
   
   public DriveTrainOmni () {
-    m_leftMotors.setInverted(true);
+    m_rearLeft.setInverted(true);
+    m_rearRight.setInverted(true);
 
     this.setDefaultCommand(new MoveDrivetrain(this));
   }
