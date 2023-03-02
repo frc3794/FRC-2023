@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.RobotContainer;
@@ -40,6 +41,8 @@ public class MoveDrivetrain extends CommandBase {
     rot *= DrivetrainConstants.kSensibilityPercent * -0.8;
 
     m_drivetrain.arcadeDrive (fwd, rot);
+
+    //SmartDashboard.putString("DB/String 0", "HELLO A");
   }
 
   @Override
@@ -50,5 +53,9 @@ public class MoveDrivetrain extends CommandBase {
   @Override
   public boolean isFinished() {
     return false;
+  }
+
+  public DriveTrainOmni getM_drivetrain () {
+    return this.m_drivetrain;
   }
 }

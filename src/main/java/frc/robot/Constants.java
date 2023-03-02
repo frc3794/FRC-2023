@@ -8,7 +8,7 @@ public final class Constants {
   }
 
 public static class DrivetrainConstants {
-    public static final int[] kMotorPorts = {7, 0, 12, 3, 4, 5, 12, 13, 14, 15};
+    public static final int[] kMotorPorts = {7, 0, 12, 3, 4, 5, 12, 13, 14, };
     //ENCODERS
     public static final double kEncoderResolution = 1024;
     public static final int[][] kEncoderPorns = {{0,1},{2,3}};

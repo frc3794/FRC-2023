@@ -13,8 +13,6 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
-  private final DriveTrainOmni m_drive =  new DriveTrainOmni();
-  private final Command m_driveCommand = new MoveDrivetrain (m_drive);
   private static final CommandXboxController subsystemController = new CommandXboxController(1);
 
   public static CommandXboxController getSubsystemController() {
@@ -57,7 +55,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    m_driveCommand.execute();
+    
   }
 
   @Override
