@@ -20,6 +20,7 @@ public class ExtendArmJoint extends CommandBase {
   
   public ExtendArmJoint(ArmJoint armJoint) {
     this.m_armJoint = armJoint;
+    addRequirements(this.m_armJoint);
   }
 
   @Override

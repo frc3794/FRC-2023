@@ -31,8 +31,8 @@ public class DriveTrain extends SubsystemBase {
 
   private final Timer m_timerForTest = new Timer ();
     
-  /*private RelativeEncoder m_leftEncoder = m_frontLeft.getEncoder();
-  private RelativeEncoder m_rightEncoder = m_rearRight.getEncoder();*/
+  private RelativeEncoder m_leftEncoder = m_frontLeft.getEncoder();
+  private RelativeEncoder m_rightEncoder = m_rearRight.getEncoder();
 
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
 
@@ -96,13 +96,18 @@ public class DriveTrain extends SubsystemBase {
     m_timer.reset ();
     m_timer.start ();
 
-    m_drive.arcadeDrive(vel, 0);
-    
-    double leftVel = 2;//m_leftEncoder.getVelocity() / 60.00;
-    double rightVel = 2;//m_rightEncoder.getVelocity() / 60.00;
+    double leftVel = m_leftEncoder.getVelocity() / 60.00;
+    double rightVel = m_rightEncoder.getVelocity() / 60.00;
 
     double leftDis = leftVel * 7.62;
     double rightDis = rightVel * 7.62;
+
+    while (m_timer.get () < 1) {
+      leftVel = m_leftEncoder.getVelocity() / 60.00;
+      leftDis = leftVel * 7.62;
+    }
+
+    m_drive.arcadeDrive(vel, 0);
 
     double timeTo = 0.00;
 
@@ -110,8 +115,8 @@ public class DriveTrain extends SubsystemBase {
     while (timeTo > t) {
       vel = vel + 0.1;
 
-      leftVel = 2;//m_leftEncoder.getVelocity() / 60.00;
-      rightVel = 2;//m_rightEncoder.getVelocity() / 60.00;
+      leftVel = m_leftEncoder.getVelocity() / 60.00;
+      rightVel = m_rightEncoder.getVelocity() / 60.00;
   
       leftDis = leftVel * 7.62;
       rightDis = rightVel * 7.62;
@@ -124,5 +129,16 @@ public class DriveTrain extends SubsystemBase {
     }
 
     m_drive.arcadeDrive(0, 0);
+  }
+
+  public void moveToDistanceByTime (double vel, double t) {
+    m_timer.reset();
+    m_timer.start();
+
+    while (m_timer.get () <= t) {
+      m_drive.arcadeDrive(vel, 0);
+    }
+
+    m_drive.stopMotor();
   }
 }

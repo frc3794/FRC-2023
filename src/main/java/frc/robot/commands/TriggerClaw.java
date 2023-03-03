@@ -17,6 +17,7 @@ public class TriggerClaw extends CommandBase {
 
     public TriggerClaw(Claw claw) {
       this.m_claw = claw;
+      addRequirements(this.m_claw);
     }
 
   @Override

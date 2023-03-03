@@ -27,12 +27,24 @@ public class MoveDrivetrain extends CommandBase {
     double rightTrigger = Math.abs(m_driverController.getRightTriggerAxis());
     double leftTrigger = Math.abs(m_driverController.getLeftTriggerAxis());
 
-    fwd = rightTrigger > 0.2 ? rightTrigger : -leftTrigger;
+    if (rightTrigger > 0.2) {
+      fwd = rightTrigger * 0.7;
+    } else if (leftTrigger > 0.2) {
+      fwd = -leftTrigger * 0.7;
+    } else {
+      fwd = 0;
+    }
 
     double rightJoystick = m_driverController.getRightX();
     double leftJoystick = m_driverController.getLeftX();
 
-    rot = Math.abs (rightJoystick) > 0.2 ? (rightJoystick * 0.8) : (leftJoystick);
+    if (Math.abs(rightJoystick) > 0.2) {
+      rot = rightJoystick * 0.8;
+    } else if (Math.abs(leftJoystick) > 0.2) {
+      rot = leftJoystick;
+    } else {
+      rot = 0;
+    }
 
     fwd *= DrivetrainConstants.kSensibilityPercent;
     rot *= DrivetrainConstants.kSensibilityPercent * -0.8;

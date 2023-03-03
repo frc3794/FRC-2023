@@ -22,21 +22,20 @@ public class Elevator extends SubsystemBase {
    private static final RelativeEncoder m_elevatorEncoder = m_elevatorMotor1.getEncoder();
    
    private static int level = 0;
-   private static double speed = m_subsystemController.getLeftY();
 
   public Elevator() {
     this.setDefaultCommand(new LiftElevator (this));
   }
   
   //"Free" Elevator Movement
-  public static Command goUp(){
+  public static Command goUp(double speed){
     m_elevatorMotor1.set(speed * ElevatorConstants.kElevatorSpeed);
     m_elevatorMotor2.set(speed * ElevatorConstants.kElevatorSpeed);
     return null;
   }
-  public static Command goDown(){
-    m_elevatorMotor1.set(speed * -ElevatorConstants.kElevatorSpeed);
-    m_elevatorMotor2.set(speed * -ElevatorConstants.kElevatorSpeed);
+  public static Command goDown(double speed){
+    m_elevatorMotor1.set(speed * ElevatorConstants.kElevatorSpeed);
+    m_elevatorMotor2.set(speed * ElevatorConstants.kElevatorSpeed);
     return null;
   }
   //Level Based Elevator Movement

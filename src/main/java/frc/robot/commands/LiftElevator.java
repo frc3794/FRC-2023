@@ -22,14 +22,16 @@ public class LiftElevator extends CommandBase {
 
   @Override
   public void execute() {
-    double elevatorMovement = m_subsystemController.getLeftY();
-    if (elevatorMovement > 0.1){
-      m_elevator.goUp();
-    } else if(elevatorMovement < -0.1){
-      m_elevator.goDown();
+    double elevatorMovement = -m_subsystemController.getLeftY();
+    if (elevatorMovement > 0.2){
+      m_elevator.goUp(elevatorMovement);
+    } else if(elevatorMovement < -0.2){
+      m_elevator.goDown(elevatorMovement);
+    } else {
+      m_elevator.stopMotors();
     }
-    m_upDPad.onTrue(m_elevator.goToPositiveLevel());
-    m_downDPad.onTrue(m_elevator.goToNegativeLevel());
+    /*m_upDPad.onTrue(m_elevator.goToPositiveLevel());
+    m_downDPad.onTrue(m_elevator.goToNegativeLevel());*/
   }
 
   @Override
