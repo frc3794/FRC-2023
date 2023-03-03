@@ -31,8 +31,10 @@ public class LiftElevator extends CommandBase {
       m_elevator.stopMotors();
     }
 
-    m_upDPad.onTrue(m_elevator.goToPositiveLevel());
-    m_downDPad.onTrue(m_elevator.goToNegativeLevel());
+    m_elevator.testEncoder();
+
+    //m_upDPad.onTrue(m_elevator.goToPositiveLevel());
+    //m_downDPad.onTrue(m_elevator.goToNegativeLevel());
   }
 
   @Override
