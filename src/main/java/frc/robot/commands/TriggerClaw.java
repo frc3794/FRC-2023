@@ -13,21 +13,25 @@ public class TriggerClaw extends CommandBase {
     private final Trigger leftSubsystemTrigger = m_subsystemController.leftTrigger();
     private final Trigger rightSubsystemTrigger = m_subsystemController.rightTrigger();
 
-    public TriggerClaw() {}
+    private Claw m_claw;
+
+    public TriggerClaw(Claw claw) {
+      this.m_claw = claw;
+    }
 
   @Override
   public void initialize() {}
 
   @Override
   public void execute(){
-    rightSubsystemTrigger.whileTrue(Claw.openClaw());
-    leftSubsystemTrigger.whileTrue(Claw.closeClaw());
+    rightSubsystemTrigger.whileTrue(this.m_claw.openClaw());
+    leftSubsystemTrigger.whileTrue(this.m_claw.closeClaw());
 
   }
 
   @Override
   public void end(boolean interrupted) {
-    Claw.stopMotors();
+    this.m_claw.stopMotors();
   }
 
   @Override

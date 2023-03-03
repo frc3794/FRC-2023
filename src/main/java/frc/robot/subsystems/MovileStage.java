@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Constants.MStageConstants;
+import frc.robot.commands.MoveMovileStage;
 
 public class MovileStage extends SubsystemBase {
   private static final TalonSRX m_movileStageMotor = new TalonSRX(9);
@@ -13,17 +14,22 @@ public class MovileStage extends SubsystemBase {
   private final static DigitalInput m_reverseLimit = new DigitalInput(MStageConstants.kReverseLimit);
 
   public static boolean isPressed;
-  public MovileStage() {}
+
+  public MovileStage() {
+    this.setDefaultCommand(new MoveMovileStage(this));
+  }
 
 //Movile Stage Movement
   public static Command extendMovileStage(){
     m_movileStageMotor.set(ControlMode.PercentOutput, MStageConstants.kMovileStageSpeed);
     return null;
   }
+
   public static Command retractMovileStage(){
     m_movileStageMotor.set(ControlMode.PercentOutput, -MStageConstants.kMovileStageSpeed);
     return null;
   }
+
   public static void getLimits(){
     if (m_forwardLimit.get() || m_reverseLimit.get()){
       isPressed = true;

@@ -40,6 +40,8 @@ public class MoveDrivetrain extends CommandBase {
     m_drivetrain.arcadeDrive (fwd, rot);
 
     //SmartDashboard.putString("DB/String 0", "HELLO A");
+
+    //m_drivetrain.testMotors();
   }
 
   @Override

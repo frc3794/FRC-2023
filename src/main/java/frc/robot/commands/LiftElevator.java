@@ -11,23 +11,30 @@ public class LiftElevator extends CommandBase {
   private final Trigger m_upDPad = m_subsystemController.povUp();
   private final Trigger m_downDPad = m_subsystemController.povDown();
 
+  private Elevator m_elevator;
+
   public void initialize() {}
+
+  public LiftElevator (Elevator elev) {
+    this.m_elevator = elev;
+    addRequirements(this.m_elevator);
+  }
 
   @Override
   public void execute() {
     double elevatorMovement = m_subsystemController.getLeftY();
     if (elevatorMovement > 0.1){
-      Elevator.goUp();
+      m_elevator.goUp();
     } else if(elevatorMovement < -0.1){
-      Elevator.goDown();
+      m_elevator.goDown();
     }
-    m_upDPad.onTrue(Elevator.goToPositiveLevel());
-    m_downDPad.onTrue(Elevator.goToNegativeLevel());
+    m_upDPad.onTrue(m_elevator.goToPositiveLevel());
+    m_downDPad.onTrue(m_elevator.goToNegativeLevel());
   }
 
   @Override
   public void end(boolean interrupted) {
-    Elevator.stopMotors();
+    m_elevator.stopMotors();
   }
 
   @Override

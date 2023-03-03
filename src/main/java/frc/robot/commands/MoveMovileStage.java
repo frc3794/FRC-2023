@@ -8,9 +8,12 @@ import frc.robot.Robot;
 
 public class MoveMovileStage extends CommandBase {
   public static final CommandXboxController m_subsystemController = Robot.getSubsystemController();
-   
+  private static MovileStage m_movileStage;
 
-  public MoveMovileStage() {}
+  public MoveMovileStage(MovileStage mov) {
+    this.m_movileStage = mov;
+    addRequirements(this.m_movileStage);
+  }
 
   @Override
   public void initialize() {}
@@ -20,10 +23,10 @@ public class MoveMovileStage extends CommandBase {
     Trigger leftSubsystemBumper = m_subsystemController.leftBumper();
     Trigger rightSubsystemBumper = m_subsystemController.rightBumper();
 
-    leftSubsystemBumper.whileTrue(MovileStage.retractMovileStage());
-    rightSubsystemBumper.whileTrue(MovileStage.extendMovileStage());
+    leftSubsystemBumper.whileTrue(this.m_movileStage.retractMovileStage());
+    rightSubsystemBumper.whileTrue(this.m_movileStage.extendMovileStage());
 
-    MovileStage.getLimits();
+    this.m_movileStage.getLimits();
   }
 
   @Override

@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import frc.robot.Robot;
+import frc.robot.commands.TriggerClaw;
 
 public class Claw extends SubsystemBase{
     private static final TalonSRX m_clawMotor = new TalonSRX(8);
@@ -15,7 +16,9 @@ public class Claw extends SubsystemBase{
     private static double rightTrigger = m_subsystemController.getRightTriggerAxis();
     private static double leftTrigger = m_subsystemController.getLeftTriggerAxis();
     
-    public Claw()  {}
+    public Claw()  {
+        this.setDefaultCommand(new TriggerClaw (this));
+    }
     //Claw Movement 
     public static Command openClaw(){
         m_clawMotor.set(ControlMode.PercentOutput, rightTrigger * 0.3);

@@ -13,24 +13,26 @@ import com.revrobotics.RelativeEncoder;
 
 public class DriveTrain extends SubsystemBase {
  //MOTORS
-  private final CANSparkMax m_frontLeft = new CANSparkMax(6,
+  private final CANSparkMax m_frontLeft = new CANSparkMax(15,
     CANSparkMaxLowLevel.MotorType.kBrushless);
     
-  private final CANSparkMax m_rearLeft = new CANSparkMax(1,
+  private final CANSparkMax m_rearLeft = new CANSparkMax(7,
     CANSparkMaxLowLevel.MotorType.kBrushless);
 
-  private final CANSparkMax m_frontRight = new CANSparkMax(5,
+  private final CANSparkMax m_frontRight = new CANSparkMax(12,
     CANSparkMaxLowLevel.MotorType.kBrushless);
 
-  private final CANSparkMax m_rearRight = new CANSparkMax(4,
+  private final CANSparkMax m_rearRight = new CANSparkMax(3,
     CANSparkMaxLowLevel.MotorType.kBrushless);
 
   //MOTOR GROUPS
   private final MotorControllerGroup m_leftMotors = new MotorControllerGroup(m_frontLeft, m_rearLeft);
   private final MotorControllerGroup m_rightMotors = new MotorControllerGroup(m_frontRight, m_rearRight);
+
+  private final Timer m_timerForTest = new Timer ();
     
-  private RelativeEncoder m_leftEncoder = m_frontLeft.getEncoder();
-  private RelativeEncoder m_rightEncoder = m_rearRight.getEncoder();
+  /*private RelativeEncoder m_leftEncoder = m_frontLeft.getEncoder();
+  private RelativeEncoder m_rightEncoder = m_rearRight.getEncoder();*/
 
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
 
@@ -53,6 +55,41 @@ public class DriveTrain extends SubsystemBase {
     m_drive.arcadeDrive(0, 0);
   }
 
+  public void testMotors () {
+    m_timerForTest.reset();
+    m_timerForTest.start();
+
+    while (m_timerForTest.get () < 1) {
+      m_rearLeft.set(1);
+    }
+    m_rearLeft.set (0);
+
+    while (m_timerForTest.get () < 2) {
+      m_frontLeft.set(1);
+    }
+    m_frontLeft.set (0);
+
+    while (m_timerForTest.get () < 3) {
+      m_rearRight.set(1);
+    }
+    m_rearRight.set (0);
+
+    while (m_timerForTest.get () < 4) {
+      m_frontRight.set(1);
+    }
+    m_frontRight.set (0);
+
+    while (m_timerForTest.get () < 5) {
+      m_leftMotors.set(1);
+    }
+    m_leftMotors.set (0);
+
+    while (m_timerForTest.get () < 6) {
+      m_rightMotors.set(1);
+    }
+    m_rightMotors.set (0);
+  }
+
   public void moveToDistance (double setPoint, double v, double t) {
     double vel = v;
 
@@ -61,8 +98,8 @@ public class DriveTrain extends SubsystemBase {
 
     m_drive.arcadeDrive(vel, 0);
     
-    double leftVel = m_leftEncoder.getVelocity() / 60.00;
-    double rightVel = m_rightEncoder.getVelocity() / 60.00;
+    double leftVel = 2;//m_leftEncoder.getVelocity() / 60.00;
+    double rightVel = 2;//m_rightEncoder.getVelocity() / 60.00;
 
     double leftDis = leftVel * 7.62;
     double rightDis = rightVel * 7.62;
@@ -73,8 +110,8 @@ public class DriveTrain extends SubsystemBase {
     while (timeTo > t) {
       vel = vel + 0.1;
 
-      leftVel = m_leftEncoder.getVelocity() / 60.00;
-      rightVel = m_rightEncoder.getVelocity() / 60.00;
+      leftVel = 2;//m_leftEncoder.getVelocity() / 60.00;
+      rightVel = 2;//m_rightEncoder.getVelocity() / 60.00;
   
       leftDis = leftVel * 7.62;
       rightDis = rightVel * 7.62;
