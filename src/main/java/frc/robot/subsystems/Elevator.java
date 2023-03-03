@@ -89,7 +89,8 @@ public class Elevator extends SubsystemBase {
 
   public void testEncoder () {
     double pos = m_elevatorEncoder.getPosition();
-    SmartDashboard.putNumber("DB/String 0", pos);
+    String x = String.valueOf(pos);
+    SmartDashboard.putString("DB/String 0", x);
   }
 
   public static void stopMotors(){
