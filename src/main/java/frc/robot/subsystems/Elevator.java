@@ -14,7 +14,6 @@ import frc.robot.commands.LiftElevator;
 
 
 public class Elevator extends SubsystemBase {
-  private final static CommandXboxController m_subsystemController = Robot.getSubsystemController();
   private final static CANSparkMax m_elevatorMotor1 =
    new CANSparkMax(1, CANSparkMaxLowLevel.MotorType.kBrushless);
    private static final CANSparkMax m_elevatorMotor2 =

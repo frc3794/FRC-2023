@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -14,9 +15,11 @@ import frc.robot.Constants.ArmJointConstants;
 import frc.robot.commands.ExtendArmJoint;
 
 public class ArmJoint extends SubsystemBase {
-  public static final TalonSRX m_armJointMotor = new TalonSRX(7);
+  public static final TalonSRX m_armJointMotor = new TalonSRX(9);
   private static final CommandXboxController m_subsystemController = Robot.getSubsystemController();
   private static double speed = m_subsystemController.getRightY();
+
+  private final Timer m_timer = new Timer ();
 
   private static double xs = 0.25;
 
@@ -28,6 +31,18 @@ public class ArmJoint extends SubsystemBase {
   public void extendArmJoint(){
     m_armJointMotor.set(ControlMode.PercentOutput , speed * xs);
   }
+
+  public void testMotor () {
+    m_timer.reset();
+    m_timer.start();
+
+    while (m_timer.get () < 1) {
+      m_armJointMotor.set(ControlMode.PercentOutput, 1);
+    }
+
+    m_armJointMotor.set(ControlMode.PercentOutput, 0);
+  }
+
   public void flexArmJoint(){
     m_armJointMotor.set(ControlMode.PercentOutput, speed * -xs);
   }
