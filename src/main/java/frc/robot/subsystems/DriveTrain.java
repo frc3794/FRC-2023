@@ -11,18 +11,18 @@ import frc.robot.commands.MoveDrivetrain;
 import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.RelativeEncoder;
 
-public class DriveTrainOmni extends SubsystemBase {
+public class DriveTrain extends SubsystemBase {
  //MOTORS
-  private final CANSparkMax m_frontLeft = new CANSparkMax(15,
+  private final CANSparkMax m_frontLeft = new CANSparkMax(6,
     CANSparkMaxLowLevel.MotorType.kBrushless);
     
-  private final CANSparkMax m_rearLeft = new CANSparkMax(0,
+  private final CANSparkMax m_rearLeft = new CANSparkMax(1,
     CANSparkMaxLowLevel.MotorType.kBrushless);
 
-  private final CANSparkMax m_frontRight = new CANSparkMax(12,
+  private final CANSparkMax m_frontRight = new CANSparkMax(5,
     CANSparkMaxLowLevel.MotorType.kBrushless);
 
-  private final CANSparkMax m_rearRight = new CANSparkMax(3,
+  private final CANSparkMax m_rearRight = new CANSparkMax(4,
     CANSparkMaxLowLevel.MotorType.kBrushless);
 
   //MOTOR GROUPS
@@ -36,9 +36,8 @@ public class DriveTrainOmni extends SubsystemBase {
 
   private final Timer m_timer = new Timer ();
   
-  public DriveTrainOmni () {
-    m_rearLeft.setInverted(true);
-    m_rearRight.setInverted(true);
+  public DriveTrain () {
+    m_rightMotors.setInverted(true);
 
     this.setDefaultCommand(new MoveDrivetrain(this));
   }

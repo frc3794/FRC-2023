@@ -1,7 +1,7 @@
 package frc.robot;
 
 import frc.robot.commands.Autos;
-import frc.robot.subsystems.DriveTrainOmni;
+import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class RobotContainer {
 
   private final Autos m_auto = new Autos ();
-  private DriveTrainOmni m_drivetrain = new DriveTrainOmni();
+  private DriveTrain m_drivetrain = new DriveTrain();
 
   public RobotContainer() {
 

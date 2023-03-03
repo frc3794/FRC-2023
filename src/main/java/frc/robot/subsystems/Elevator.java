@@ -15,15 +15,17 @@ import frc.robot.Constants.ElevatorConstants;
 public class Elevator extends SubsystemBase {
   private final static CommandXboxController m_subsystemController = Robot.getSubsystemController();
   private final static CANSparkMax m_elevatorMotor1 =
-   new CANSparkMax(1, CANSparkMaxLowLevel.MotorType.kBrushless);
-   private static final CANSparkMax m_elevatorMotor2 =
    new CANSparkMax(2, CANSparkMaxLowLevel.MotorType.kBrushless);
+   private static final CANSparkMax m_elevatorMotor2 =
+   new CANSparkMax(3, CANSparkMaxLowLevel.MotorType.kBrushless);
    private static final RelativeEncoder m_elevatorEncoder = m_elevatorMotor1.getEncoder();
    
    private static int level = 0;
    private static double speed = m_subsystemController.getLeftY();
 
-  public Elevator() {}
+  public Elevator() {
+    m_elevatorMotor2.setInverted(true);
+  }
   
   //"Free" Elevator Movement
   public static Command goUp(){

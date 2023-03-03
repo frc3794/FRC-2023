@@ -11,28 +11,31 @@ import frc.robot.Robot;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import frc.robot.Constants.ArmJointConstants;
+import frc.robot.commands.ExtendArmJoint;
 
 public class ArmJoint extends SubsystemBase {
-  public static final TalonSRX m_armJointMotor = new TalonSRX(6);
+  public static final TalonSRX m_armJointMotor = new TalonSRX(7);
   private static final CommandXboxController m_subsystemController = Robot.getSubsystemController();
   private static double speed = m_subsystemController.getRightY();
 
-  public ArmJoint() {}
-  //Arm Joint Movement
-  public static Command extendArmJoint(){
-    m_armJointMotor.set(ControlMode.PercentOutput , speed * ArmJointConstants.kArmJointSpeed);
-    return null;
+  private static double xs = 0.25;
+
+  public ArmJoint() {
+    this.setDefaultCommand(new ExtendArmJoint (this));
   }
-  public static Command flexArmJoint(){
-    m_armJointMotor.set(ControlMode.PercentOutput, speed * -ArmJointConstants.kArmJointSpeed);
-    return null;
+
+  //Arm Joint Movement
+  public void extendArmJoint(){
+    m_armJointMotor.set(ControlMode.PercentOutput , speed * xs);
+  }
+  public void flexArmJoint(){
+    m_armJointMotor.set(ControlMode.PercentOutput, speed * -xs);
   }
  
   @Override
   public void periodic() {}
 
-  public static Command stopMotors(){
+  public static void stopMotors(){
     m_armJointMotor.set(ControlMode.Disabled, 0);
-    return null;
   }
 }

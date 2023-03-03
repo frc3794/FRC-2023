@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Constants.MStageConstants;
 
 public class MovileStage extends SubsystemBase {
-  private static final TalonSRX m_movileStageMotor = new TalonSRX(4);
+  private static final TalonSRX m_movileStageMotor = new TalonSRX(9);
   private final static DigitalInput m_forwardLimit = new DigitalInput(MStageConstants.kForwardLimit);
   private final static DigitalInput m_reverseLimit = new DigitalInput(MStageConstants.kReverseLimit);
 

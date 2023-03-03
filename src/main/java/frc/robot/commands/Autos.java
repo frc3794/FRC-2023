@@ -2,18 +2,18 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.subsystems.DriveTrainOmni;
+import frc.robot.subsystems.DriveTrain;
 
 public final class Autos {
 
   //private final DriveTrainOmni m_drive = new DriveTrainOmni();
 
   private int level = 1;
-  private DriveTrainOmni m_drivetrain;
+  private DriveTrain m_drivetrain;
 
   public Autos() {}
 
-  public Command autoCommand (DriveTrainOmni drive, int level) {
+  public Command autoCommand (DriveTrain drive, int level) {
     this.m_drivetrain = drive;
 
     switch (level) {

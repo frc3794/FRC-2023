@@ -16,8 +16,11 @@ import frc.robot.Constants.ArmJointConstants;
 public class ExtendArmJoint extends CommandBase {
   private final CommandXboxController m_subSystemController = Robot.getSubsystemController();
   private final DigitalInput m_armJointSwitch = new DigitalInput(ArmJointConstants.kArmJointLimit);
+  private final ArmJoint m_armJoint;
   
-  public ExtendArmJoint() {}
+  public ExtendArmJoint(ArmJoint armJoint) {
+    this.m_armJoint = armJoint;
+  }
 
   @Override
   public void initialize() {}
@@ -26,13 +29,13 @@ public class ExtendArmJoint extends CommandBase {
   public void execute() {
     double m_armJointMovement = m_subSystemController.getRightY();
     if (m_armJointMovement > 0.1){
-      ArmJoint.extendArmJoint();
+      m_armJoint.extendArmJoint();
     } else if (m_armJointMovement < -0.1){
-      ArmJoint.flexArmJoint();
+      m_armJoint.flexArmJoint();
     }
 
     if (m_armJointSwitch.get()){
-      ArmJoint.m_armJointMotor.set(ControlMode.PercentOutput, 0);
+      m_armJoint.m_armJointMotor.set(ControlMode.PercentOutput, 0);
     }
   }
 

@@ -3,16 +3,16 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.DrivetrainConstants;
-import frc.robot.subsystems.DriveTrainOmni;
+import frc.robot.subsystems.DriveTrain;
 
 public class MoveDrivetrain extends CommandBase {
   
-  private DriveTrainOmni m_drivetrain;
+  private DriveTrain m_drivetrain;
 
   private final CommandXboxController m_driverController =
     new CommandXboxController(0);
 
-  public MoveDrivetrain(DriveTrainOmni drivetrain) {
+  public MoveDrivetrain(DriveTrain drivetrain) {
     this.m_drivetrain = drivetrain;
     addRequirements(drivetrain);
   }
@@ -50,9 +50,5 @@ public class MoveDrivetrain extends CommandBase {
   @Override
   public boolean isFinished() {
     return false;
-  }
-
-  public DriveTrainOmni getM_drivetrain () {
-    return this.m_drivetrain;
   }
 }
