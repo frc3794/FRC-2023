@@ -23,85 +23,78 @@ public class Elevator extends SubsystemBase {
    
    private static int level = 0;
 
+   private final static double elevatorSpeed = 0.5;
+
   public Elevator() {
     this.setDefaultCommand(new LiftElevator (this));
   }
   
   //"Free" Elevator Movement
-  public static Command goUp(double speed){
-    m_elevatorMotor1.set(speed * ElevatorConstants.kElevatorSpeed);
-    m_elevatorMotor2.set(speed * ElevatorConstants.kElevatorSpeed);
-    return null;
+  public static void goUp(double speed){
+    m_elevatorMotor1.set(speed * elevatorSpeed);
+    m_elevatorMotor2.set(speed * elevatorSpeed);
   }
-  public static Command goDown(double speed){
-    m_elevatorMotor1.set(speed * ElevatorConstants.kElevatorSpeed);
-    m_elevatorMotor2.set(speed * ElevatorConstants.kElevatorSpeed);
-    return null;
+  
+  public static void goDown(double speed){
+    m_elevatorMotor1.set(speed * elevatorSpeed);
+    m_elevatorMotor2.set(speed * elevatorSpeed);
   }
   //Level Based Elevator Movement
   public static Command goToPositiveLevel(){
-    returnPlusLevel();
+    level += 1;
     switch (level){
       case 1:
-      while (m_elevatorEncoder.getPosition() < ElevatorConstants.kEncoderLimits[1]){
-        m_elevatorMotor1.set(ElevatorConstants.kElevatorSpeed);
-        m_elevatorMotor2.set(ElevatorConstants.kElevatorSpeed);
-      }
+        while (m_elevatorEncoder.getPosition() < ElevatorConstants.kEncoderLimits[1]){
+          m_elevatorMotor1.set(elevatorSpeed);
+          m_elevatorMotor2.set(elevatorSpeed);
+        }
       break;
       case 2:
-      while (m_elevatorEncoder.getPosition() < ElevatorConstants.kEncoderLimits[2]){
-        m_elevatorMotor1.set(ElevatorConstants.kElevatorSpeed);
-        m_elevatorMotor2.set(ElevatorConstants.kElevatorSpeed);
-      }
+        while (m_elevatorEncoder.getPosition() < ElevatorConstants.kEncoderLimits[2]){
+          m_elevatorMotor1.set(elevatorSpeed);
+          m_elevatorMotor2.set(elevatorSpeed);
+        }
       break;
+      default:
+        level = 2; break;
     }
     return null;
   }
 
   public static Command goToNegativeLevel(){
-    returnMinusLevel();
+    level -= 1;
     switch (level){
       case 0:
-      while (m_elevatorEncoder.getPosition() > ElevatorConstants.kEncoderLimits[0]){
-        m_elevatorMotor1.set(-ElevatorConstants.kElevatorSpeed);
-        m_elevatorMotor2.set(-ElevatorConstants.kElevatorSpeed);
-      }
+        while (m_elevatorEncoder.getPosition() > ElevatorConstants.kEncoderLimits[0]){
+          m_elevatorMotor1.set(-ElevatorConstants.kElevatorSpeed);
+          m_elevatorMotor2.set(-ElevatorConstants.kElevatorSpeed);
+        }
       break;
       case 1:
-      while (m_elevatorEncoder.getPosition() > ElevatorConstants.kEncoderLimits[1]){
-        m_elevatorMotor1.set(-ElevatorConstants.kElevatorSpeed);
-        m_elevatorMotor2.set(-ElevatorConstants.kElevatorSpeed);
-      }
+        while (m_elevatorEncoder.getPosition() > ElevatorConstants.kEncoderLimits[1]){
+          m_elevatorMotor1.set(-ElevatorConstants.kElevatorSpeed);
+          m_elevatorMotor2.set(-ElevatorConstants.kElevatorSpeed);
+        }
       break;
+      default:
+        level = 0; break;
     }
     return null;
-  }
-  //Getting the current level
-  public static int returnPlusLevel(){
-    level = level + 1;
-    if (level > 2){
-      level = 2;
-    }
-    return level;
-  }
-
-  public static int returnMinusLevel(){
-    level = level - 1;
-    if (level < 0){
-      level = 0;
-    }
-    return level;
   }
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Encoder Position", m_elevatorEncoder.getPosition());
+    
   }
 
-  public static Command stopMotors(){
+  public void testEncoder () {
+    double pos = m_elevatorEncoder.getPosition();
+    SmartDashboard.putNumber("DB/String 0", pos);
+  }
+
+  public static void stopMotors(){
     m_elevatorMotor1.stopMotor();
     m_elevatorMotor2.stopMotor();
-    return null;
   }
 
 }
