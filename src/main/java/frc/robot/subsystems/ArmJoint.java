@@ -9,11 +9,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Robot;
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import frc.robot.Constants.ArmJointConstants;
 
 public class ArmJoint extends SubsystemBase {
-  public static final VictorSPX m_armJointMotor = new VictorSPX(6);
+  public static final TalonSRX m_armJointMotor = new TalonSRX(6);
   private static final CommandXboxController m_subsystemController = Robot.getSubsystemController();
   private static double speed = m_subsystemController.getRightY();
 
