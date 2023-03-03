@@ -22,8 +22,8 @@ public static class DrivetrainConstants {
   }
   //ELEVATOR
   public static class ElevatorConstants {
-    public static double[] kEncoderLimits = {0, 1000, 2000};
-    public static final double kElevatorSpeed = .2;  
+    public static double[] kEncoderLimits = {0, 10, 20};
+    public static final double kElevatorSpeed = .5;  
   }
   
 }
