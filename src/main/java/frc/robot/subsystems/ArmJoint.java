@@ -15,20 +15,20 @@ import frc.robot.Constants.ArmJointConstants;
 import frc.robot.commands.ExtendArmJoint;
 
 public class ArmJoint extends SubsystemBase {
-  public static final TalonSRX m_armJointMotor = new TalonSRX(9);
+  public static final TalonSRX m_armJointMotor = new TalonSRX(12);
   private static final CommandXboxController m_subsystemController = Robot.getSubsystemController();
-  private static double speed = m_subsystemController.getRightY();
+
 
   private final Timer m_timer = new Timer ();
 
-  private static double xs = 0.25;
+  private static double xs = 1;
 
   public ArmJoint() {
     this.setDefaultCommand(new ExtendArmJoint (this));
   }
 
   //Arm Joint Movement
-  public void extendArmJoint(){
+  public void extendArmJoint(double speed){
     m_armJointMotor.set(ControlMode.PercentOutput , speed * xs);
   }
 
@@ -43,7 +43,7 @@ public class ArmJoint extends SubsystemBase {
     m_armJointMotor.set(ControlMode.PercentOutput, 0);
   }
 
-  public void flexArmJoint(){
+  public void flexArmJoint(double speed){
     m_armJointMotor.set(ControlMode.PercentOutput, speed * -xs);
   }
  

@@ -25,8 +25,8 @@ public class TriggerClaw extends CommandBase {
 
   @Override
   public void execute(){
-    rightSubsystemTrigger.whileTrue(this.m_claw.openClaw());
-    leftSubsystemTrigger.whileTrue(this.m_claw.closeClaw());
+    /*rightSubsystemTrigger.whileTrue(this.m_claw.openClaw());
+    leftSubsystemTrigger.whileTrue(this.m_claw.closeClaw());*/
 
   }
 

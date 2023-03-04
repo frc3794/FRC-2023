@@ -30,9 +30,9 @@ public class ExtendArmJoint extends CommandBase {
   public void execute() {
     double m_armJointMovement = m_subSystemController.getRightY();
     if (m_armJointMovement > 0.1){
-      m_armJoint.extendArmJoint();
+      m_armJoint.extendArmJoint(m_armJointMovement);
     } else if (m_armJointMovement < -0.1){
-      m_armJoint.flexArmJoint();
+      m_armJoint.flexArmJoint(m_armJointMovement);
     }
 
     if (m_armJointSwitch.get()){

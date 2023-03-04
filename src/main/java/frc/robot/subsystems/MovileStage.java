@@ -10,7 +10,7 @@ import frc.robot.Constants.MStageConstants;
 import frc.robot.commands.MoveMovileStage;
 
 public class MovileStage extends SubsystemBase {
-  private static final TalonSRX m_movileStageMotor = new TalonSRX(12);
+  private static final TalonSRX m_movileStageMotor = new TalonSRX(9);
   private final static DigitalInput m_forwardLimit = new DigitalInput(MStageConstants.kForwardLimit);
   private final static DigitalInput m_reverseLimit = new DigitalInput(MStageConstants.kReverseLimit);
 
@@ -24,16 +24,6 @@ public class MovileStage extends SubsystemBase {
 
 //Movile Stage Movement
   public static Command extendMovileStage(){
-    m_movileStageMotor.set(ControlMode.PercentOutput, MStageConstants.kMovileStageSpeed);
-    return null;
-  }
-
-  public static Command retractMovileStage(){
-    m_movileStageMotor.set(ControlMode.PercentOutput, -MStageConstants.kMovileStageSpeed);
-    return null;
-  }
-
-  public static void getLimits(){
     if (m_forwardLimit.get() || m_reverseLimit.get()){
       isPressed = true;
     } else {
@@ -42,7 +32,27 @@ public class MovileStage extends SubsystemBase {
     
     if (isPressed){
       m_movileStageMotor.set(ControlMode.PercentOutput, 0);
-    } 
+    } else {
+      m_movileStageMotor.set(ControlMode.PercentOutput, MStageConstants.kMovileStageSpeed);
+    }
+
+    return null;
+  }
+
+  public static Command retractMovileStage(){
+    if (m_forwardLimit.get() || m_reverseLimit.get()){
+      isPressed = true;
+    } else {
+      isPressed = false;
+    }
+    
+    if (isPressed){
+      m_movileStageMotor.set(ControlMode.PercentOutput, 0);
+    } else {
+      m_movileStageMotor.set(ControlMode.PercentOutput, -MStageConstants.kMovileStageSpeed);
+    }
+
+    return null;
   }
 
   public void testMotor () {
@@ -50,7 +60,7 @@ public class MovileStage extends SubsystemBase {
     m_timer.start();
 
     while (m_timer.get () < 1) {
-      m_movileStageMotor.set(ControlMode.PercentOutput, 1);
+      m_movileStageMotor.set(ControlMode.PercentOutput, 0.2);
     }
 
     m_movileStageMotor.set(ControlMode.PercentOutput, 0);
