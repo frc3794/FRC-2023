@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.MoveDrivetrain;
 
@@ -91,44 +92,32 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void moveToDistance (double setPoint, double v, double t) {
-    double vel = v;
-
+    double pastPos = m_leftEncoder.getPosition();
+    
     m_timer.reset ();
     m_timer.start ();
 
-    double leftVel = m_leftEncoder.getVelocity() / 60.00;
-    double rightVel = m_rightEncoder.getVelocity() / 60.00;
+    double dis = 0.00;
 
-    double leftDis = leftVel * 7.62;
-    double rightDis = rightVel * 7.62;
+    while (m_timer.get () <= t && dis < setPoint) {
+      double pos = m_leftEncoder.getPosition();
+      dis = (pos - pastPos) * 7.62;
 
-    while (m_timer.get () < 1) {
-      leftVel = m_leftEncoder.getVelocity() / 60.00;
-      leftDis = leftVel * 7.62;
-    }
-
-    m_drive.arcadeDrive(vel, 0);
-
-    double timeTo = 0.00;
-
-    timeTo = setPoint / leftDis;
-    while (timeTo > t) {
-      vel = vel + 0.1;
-
-      leftVel = m_leftEncoder.getVelocity() / 60.00;
-      rightVel = m_rightEncoder.getVelocity() / 60.00;
-  
-      leftDis = leftVel * 7.62;
-      rightDis = rightVel * 7.62;
-
-      timeTo = setPoint / leftDis;
-    }
-
-    while (m_timer.get () <= timeTo) {
-      m_drive.arcadeDrive(vel, 0);
+      m_drive.arcadeDrive(v, 0);
     }
 
     m_drive.arcadeDrive(0, 0);
+  }
+
+  public void testEncoder (){
+    double pos_l = m_leftEncoder.getPosition();
+    double pos_r = m_rightEncoder.getPosition();
+
+    String l = String.valueOf(pos_l);
+    String r = String.valueOf(pos_r);
+    
+    SmartDashboard.putString("DB/String 1", l);
+    SmartDashboard.putString("DB/String 2", r); 
   }
 
   public void moveToDistanceByTime (double vel, double t) {

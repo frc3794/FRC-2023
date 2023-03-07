@@ -19,14 +19,14 @@ public final class Autos {
     switch (level) {
       case 1: level1 ();
       case 2: level2 ();
-      default: level0 ();
+      default: level1 ();
     }
 
     return new WaitCommand(0.0000);
   }
 
   private void level1 () {
-    this.m_drivetrain.moveToDistance(150, 0.5, 12);
+    this.m_drivetrain.moveToDistance(208, 0.5, 14.5);
   }
 
   private void level2 () {
@@ -35,6 +35,7 @@ public final class Autos {
 
   private void level0 () {
     //this.m_drivetrain.moveToDistance(50, 0.5, 14.7);
-    m_drivetrain.moveToDistanceByTime(0.7, 2.6);
+    //m_drivetrain.moveToDistanceByTime(0.7, 1.5);
+    m_drivetrain.testEncoder();
   }
 }

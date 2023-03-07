@@ -23,6 +23,8 @@ public class MoveMovileStage extends CommandBase {
     Trigger leftSubsystemBumper = m_subsystemController.leftBumper();
     Trigger rightSubsystemBumper = m_subsystemController.rightBumper();
 
+    m_movileStage.extendMovileStage();
+
     /*leftSubsystemBumper.whileTrue(this.m_movileStage.retractMovileStage());
     rightSubsystemBumper.whileTrue(this.m_movileStage.extendMovileStage());*/
   }

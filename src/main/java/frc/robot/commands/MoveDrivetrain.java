@@ -28,9 +28,9 @@ public class MoveDrivetrain extends CommandBase {
     double leftTrigger = Math.abs(m_driverController.getLeftTriggerAxis());
 
     if (rightTrigger > 0.2) {
-      fwd = rightTrigger * 0.7;
+      fwd = rightTrigger * 0.8;
     } else if (leftTrigger > 0.2) {
-      fwd = -leftTrigger * 0.7;
+      fwd = -leftTrigger * 0.8;
     } else {
       fwd = 0;
     }

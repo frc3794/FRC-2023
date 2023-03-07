@@ -2,7 +2,6 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -89,7 +88,6 @@ public class Elevator extends SubsystemBase {
   public void testEncoder () {
     double pos = m_elevatorEncoder.getPosition();
     String x = String.valueOf(pos);
-    SmartDashboard.putString("DB/String 0", x);
   }
 
   public static void stopMotors(){

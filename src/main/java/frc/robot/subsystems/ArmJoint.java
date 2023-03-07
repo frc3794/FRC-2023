@@ -21,7 +21,7 @@ public class ArmJoint extends SubsystemBase {
 
   private final Timer m_timer = new Timer ();
 
-  private static double xs = 1;
+  private static double xs = 0.7;
 
   public ArmJoint() {
     this.setDefaultCommand(new ExtendArmJoint (this));
