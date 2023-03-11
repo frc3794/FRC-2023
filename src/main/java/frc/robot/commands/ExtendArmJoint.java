@@ -8,10 +8,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Robot;
 import frc.robot.subsystems.ArmJoint;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-
 import edu.wpi.first.wpilibj.DigitalInput;
-import frc.robot.Constants.ArmJointConstants;
 
 public class ExtendArmJoint extends CommandBase {
   private final CommandXboxController m_subSystemController = Robot.getSubsystemController();

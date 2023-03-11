@@ -22,7 +22,8 @@ public class MoveDrivetrain extends CommandBase {
 
   @Override
   public void execute() {
-    double fwd = 0, rot = 0;
+
+    /*double fwd = 0, rot = 0;
 
     double rightTrigger = Math.abs(m_driverController.getRightTriggerAxis());
     double leftTrigger = Math.abs(m_driverController.getLeftTriggerAxis());
@@ -53,7 +54,9 @@ public class MoveDrivetrain extends CommandBase {
 
     //SmartDashboard.putString("DB/String 0", "HELLO A");
 
-    //m_drivetrain.testMotors();
+    //m_drivetrain.testMotors();*/
+
+    m_drivetrain.testNavx();
   }
 
   @Override

@@ -1,9 +1,13 @@
 package frc.robot.subsystems;
 
+import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -35,9 +39,17 @@ public class DriveTrain extends SubsystemBase {
   private RelativeEncoder m_leftEncoder = m_frontLeft.getEncoder();
   private RelativeEncoder m_rightEncoder = m_rearRight.getEncoder();
 
+  private final AHRS m_gyro = new AHRS(SPI.Port.kMXP);
+
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
 
   private final Timer m_timer = new Timer ();
+
+  private final double kP = 1.00, kI = 1.00, kD = 1.00;
+  private PIDController pid = new PIDController(kP, kI, kD);
+
+  private final double P = 1.00, I = 1.00, D = 1.00;
+  private double error, integral, derivative, rcw, previous_error;
   
   public DriveTrain () {
     m_rightMotors.setInverted(true);
@@ -54,6 +66,30 @@ public class DriveTrain extends SubsystemBase {
 
   public void stop () {
     m_drive.arcadeDrive(0, 0);
+  }
+
+  private double encodersDis () {
+    double pastPos = m_leftEncoder.getPosition();
+
+    double dis = 0.00;
+
+    double pos = m_leftEncoder.getPosition();
+    dis = (pos - pastPos) * 6 * 2.54 * Math.PI;
+
+    return dis;
+  }
+
+  public void testPID (double setPoint) {
+    m_drive.arcadeDrive(pid.calculate(encodersDis (), setPoint), 0);
+  }
+
+  public void testOtherPID (double setPoint) {
+    error = setPoint - encodersDis();
+    integral += (error * .01);
+    derivative = (error - previous_error) / .01;
+    rcw = P * error + I * integral + D * derivative;
+
+    m_drive.arcadeDrive(rcw, 0);
   }
 
   public void testMotors () {
@@ -101,7 +137,7 @@ public class DriveTrain extends SubsystemBase {
 
     while (m_timer.get () <= t && dis < setPoint) {
       double pos = m_leftEncoder.getPosition();
-      dis = (pos - pastPos) * 7.62;
+      dis = (pos - pastPos) * 6 * 2.54 * Math.PI;
 
       m_drive.arcadeDrive(v, 0);
     }
@@ -118,6 +154,26 @@ public class DriveTrain extends SubsystemBase {
     
     SmartDashboard.putString("DB/String 1", l);
     SmartDashboard.putString("DB/String 2", r); 
+  }
+
+  public void resetNavX () {
+    m_gyro.reset();
+    m_gyro.zeroYaw();
+    m_gyro.calibrate();
+  }
+
+  public void testNavx () {
+    double pitch = m_gyro.getPitch();
+    double roll = m_gyro.getRoll();
+    double yaw = m_gyro.getYaw();
+    
+    String p = "Pitch: " + String.valueOf(pitch);
+    String r = "Roll: " + String.valueOf(roll);
+    String y = "Yaw: " + String.valueOf(yaw);
+    
+    SmartDashboard.putString("DB/String 0", p);
+    SmartDashboard.putString("DB/String 1", r);
+    SmartDashboard.putString("DB/String 2", y);
   }
 
   public void moveToDistanceByTime (double vel, double t) {

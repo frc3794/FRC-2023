@@ -11,8 +11,8 @@ public class MoveMovileStage extends CommandBase {
   private static MovileStage m_movileStage;
 
   public MoveMovileStage(MovileStage mov) {
-    this.m_movileStage = mov;
-    addRequirements(this.m_movileStage);
+    MoveMovileStage.m_movileStage = mov;
+    addRequirements(MoveMovileStage.m_movileStage);
   }
 
   @Override

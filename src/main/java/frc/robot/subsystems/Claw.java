@@ -49,7 +49,7 @@ public class Claw extends SubsystemBase{
         m_clawMotor.set(ControlMode.PercentOutput, 0);
     }
 
-    public static Command stopMotors(){
+    public Command stopMotors(){
         m_clawMotor.set(ControlMode.Disabled, 0);
         return null;
     }
