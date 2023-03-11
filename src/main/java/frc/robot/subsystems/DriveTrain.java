@@ -164,16 +164,14 @@ public class DriveTrain extends SubsystemBase {
 
   public void testNavx () {
     double pitch = m_gyro.getPitch();
-    double roll = m_gyro.getRoll();
-    double yaw = m_gyro.getYaw();
     
     String p = "Pitch: " + String.valueOf(pitch);
-    String r = "Roll: " + String.valueOf(roll);
-    String y = "Yaw: " + String.valueOf(yaw);
     
     SmartDashboard.putString("DB/String 0", p);
-    SmartDashboard.putString("DB/String 1", r);
-    SmartDashboard.putString("DB/String 2", y);
+  }
+
+  public double getPitch () {
+    return m_gyro.getPitch();
   }
 
   public void moveToDistanceByTime (double vel, double t) {

@@ -18,7 +18,9 @@ public class MoveDrivetrain extends CommandBase {
   }
 
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_drivetrain.resetNavX(); 
+  }
 
   @Override
   public void execute() {
