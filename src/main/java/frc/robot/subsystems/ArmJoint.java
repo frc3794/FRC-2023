@@ -49,7 +49,7 @@ public class ArmJoint extends SubsystemBase {
 
   public void testEncoder () {
     double pos = m_encoder1.getPosition();
-    String p = String.valueOf(pos);
+    String p = "Enc: " + String.valueOf(pos);
     SmartDashboard.putString("DB/String 4", p);
   }
  

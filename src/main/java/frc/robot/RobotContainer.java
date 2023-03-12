@@ -16,7 +16,10 @@ public class RobotContainer {
   private final ArmJoint m_armJoint = new ArmJoint();
 
   public RobotContainer() {
-
+    SmartDashboard.putString("DB/String 5", "0: Fuera");
+    SmartDashboard.putString("DB/String 6", "1: Charging");
+    SmartDashboard.putString("DB/String 7", "2: Cubo y Charging");
+    SmartDashboard.putString("DB/String 8", "3: Cubo 2 Y Charging");
   }
 
   public Command getAutonomousCommand() {
