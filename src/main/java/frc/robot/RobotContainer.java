@@ -11,9 +11,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class RobotContainer {
 
   private final DriveTrain m_drivetrain = new DriveTrain();
-  private final Autos m_auto = new Autos (m_drivetrain);
   private final Claw m_claw = new Claw ();
   private final ArmJoint m_armJoint = new ArmJoint();
+  private final Autos m_auto = new Autos (m_drivetrain, m_armJoint, m_claw);
 
   public RobotContainer() {
     SmartDashboard.putString("DB/String 5", "0: Fuera");

@@ -8,6 +8,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.RelativeEncoder;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -28,6 +29,8 @@ public class ArmJoint extends SubsystemBase {
   private final MotorControllerGroup m_motors = new MotorControllerGroup(m_motor1, m_motor2);
 
   private RelativeEncoder m_encoder1 = m_motor1.getEncoder();
+
+  private final Timer m_timer = new Timer ();
 
   public ArmJoint() {
     this.setDefaultCommand(new ExtendArmJoint (this));
@@ -51,6 +54,22 @@ public class ArmJoint extends SubsystemBase {
     double pos = m_encoder1.getPosition();
     String p = "Enc: " + String.valueOf(pos);
     SmartDashboard.putString("DB/String 4", p);
+  }
+
+  public void watchMe (double vel, double t) {
+    double limitUp = 10, limitDown = 6;
+    
+    m_timer.reset ();
+    m_timer.start ();
+
+    while (m_timer.get () <= t) {
+      if (m_encoder1.getPosition() < limitUp)
+        m_motors.set (vel);
+      else if (m_encoder1.getPosition() > limitDown)
+        m_motors.set (-vel);
+    }
+
+    m_motors.set (0);
   }
  
   @Override
