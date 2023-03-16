@@ -26,7 +26,7 @@ public final class Autos {
       case 1: level1 (); break;
       case 2: level2 (); break;
       case 3: level3 (); break;
-      default: level1 (); break;
+      default: level0 (); break;
     }
 
     return new WaitCommand(0.0000);

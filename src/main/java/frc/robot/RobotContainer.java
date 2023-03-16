@@ -23,7 +23,7 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    /*int level = 0;
+    int level = 0;
 
     boolean buttonValue = SmartDashboard.getBoolean("DB/Button 0", false);
     boolean buttonValue1 = SmartDashboard.getBoolean("DB/Button 1", false);
@@ -45,8 +45,8 @@ public class RobotContainer {
     } else {
       SmartDashboard.putString("DB/String ", "Not value on button");
       level = 0;
-    }*/
+    }
 
-    return m_auto.autoCommand(0);
+    return m_auto.autoCommand(level);
   }
 }
