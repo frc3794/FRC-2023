@@ -9,8 +9,6 @@ import frc.robot.Robot;
 public class TriggerClaw extends CommandBase {
 
     private final CommandXboxController m_subsystemController = Robot.getSubsystemController();
-    private final double leftTrigger = Math.abs (m_subsystemController.getLeftTriggerAxis());
-    private final double rightTrigger = Math.abs (m_subsystemController.getRightTriggerAxis());
 
     private Claw m_claw;
 
@@ -20,14 +18,20 @@ public class TriggerClaw extends CommandBase {
     }
 
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_claw.openClaw();
+  }
 
   @Override
   public void execute(){
-    if (leftTrigger > 0.2)
+    double leftTrigger = Math.abs (m_subsystemController.getLeftTriggerAxis());
+    double rightTrigger = Math.abs (m_subsystemController.getRightTriggerAxis());
+
+    if (rightTrigger > 0.2) {
       this.m_claw.openClaw();
-    else if (rightTrigger > 0.2)
+    } else if (leftTrigger > 0.2) {
       this.m_claw.closeClaw();
+    }
   }
 
   @Override

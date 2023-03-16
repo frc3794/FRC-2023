@@ -23,7 +23,7 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    int level = 0;
+    /*int level = 0;
 
     boolean buttonValue = SmartDashboard.getBoolean("DB/Button 0", false);
     boolean buttonValue1 = SmartDashboard.getBoolean("DB/Button 1", false);
@@ -31,22 +31,22 @@ public class RobotContainer {
     boolean buttonValue3 = SmartDashboard.getBoolean("DB/Button 3", false);
 
     if (buttonValue && !buttonValue1 && !buttonValue2 && !buttonValue3) {
-      SmartDashboard.putString("DB/String 5", "Level 0");
+      SmartDashboard.putString("DB/String 9", "Level 0");
       level = 0;
     } else if (!buttonValue && buttonValue1 && !buttonValue2 && !buttonValue3) {
-      SmartDashboard.putString("DB/String 5", "Level 1");
+      SmartDashboard.putString("DB/String 9", "Level 1");
       level = 1;
     } else if (!buttonValue && !buttonValue1 && buttonValue2 && !buttonValue3) {
-      SmartDashboard.putString("DB/String 5", "Level 2");
+      SmartDashboard.putString("DB/String 9", "Level 2");
       level = 2;
     } else if (!buttonValue && !buttonValue1 && !buttonValue2 && buttonValue3) {
-      SmartDashboard.putString("DB/String 5", "Level 3");
+      SmartDashboard.putString("DB/String 9", "Level 3");
       level = 3;
     } else {
-      SmartDashboard.putString("DB/String 5", "Not value on button");
+      SmartDashboard.putString("DB/String ", "Not value on button");
       level = 0;
-    }
+    }*/
 
-    return m_auto.autoCommand(level);
+    return m_auto.autoCommand(0);
   }
 }

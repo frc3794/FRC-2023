@@ -7,18 +7,20 @@ import frc.robot.commands.TriggerClaw;
 
 public class Claw extends SubsystemBase{
 
-    private final Solenoid m_solenoid = new Solenoid(PneumaticsModuleType.CTREPCM, 1);
+    private final Solenoid m_solenoid = new Solenoid(PneumaticsModuleType.CTREPCM, 0);
     
     public Claw()  {
         this.setDefaultCommand(new TriggerClaw (this));
     }
     //Claw Movement 
     public void openClaw(){
-        m_solenoid.set (true);
+        if (m_solenoid.get())
+            m_solenoid.set (false);
     }
 
     public void closeClaw(){
-        m_solenoid.set(false);
+        if (!m_solenoid.get ())
+            m_solenoid.set(true);
     }
 
     @Override

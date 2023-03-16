@@ -16,9 +16,9 @@ import frc.robot.commands.ExtendArmJoint;
 
 public class ArmJoint extends SubsystemBase {
 
-  private final double defaultSpeed = 0.7;
-  private final double limitExtend = 3.0;
-  private final double limitBack = 0.00;
+  private final double defaultSpeed = 0.15;
+  private double limitExtend;
+  private double limitBack;
 
   private final CANSparkMax m_motor1 = new CANSparkMax(2,
     CANSparkMaxLowLevel.MotorType.kBrushless);
@@ -32,28 +32,40 @@ public class ArmJoint extends SubsystemBase {
 
   private final Timer m_timer = new Timer ();
 
+  public boolean extended = false;
+
   public ArmJoint() {
     this.setDefaultCommand(new ExtendArmJoint (this));
+    limitExtend = m_encoder1.getPosition() + 3.2;
+    limitBack = m_encoder1.getPosition() + 0.1;
   }
 
   public void extendArmJoint(double speed){
     if (m_encoder1.getPosition() < limitExtend)
-      m_motors.set(defaultSpeed * speed);
+      m_motors.set(speed);
     else
       m_motors.set (0);
   }
 
-  public void flexArmJoint(double speed){
+  public void flexArmJoint (double speed){
     if (m_encoder1.getPosition() > limitBack)
-      m_motors.set(-defaultSpeed * speed);
+      m_motors.set(-speed);
     else
       m_motors.set (0);
+  }
+
+  public void extendArm (int dec) {
+    int decEnc = 1;
+    if (m_encoder1.getPosition() >= limitExtend)
+      decEnc = 0;
+
+    m_motors.set(defaultSpeed * dec * decEnc);
   }
 
   public void testEncoder () {
     double pos = m_encoder1.getPosition();
-    String p = "Enc: " + String.valueOf(pos);
-    SmartDashboard.putString("DB/String 4", p);
+    String p = "En0: " + String.valueOf(pos);
+    SmartDashboard.putString("DB/String 0", p);
   }
 
   public void watchMe (double vel, double t) {
@@ -62,11 +74,15 @@ public class ArmJoint extends SubsystemBase {
     m_timer.reset ();
     m_timer.start ();
 
-    while (m_timer.get () <= t) {
+    while (m_timer.get () <= t - 1) {
       if (m_encoder1.getPosition() < limitUp)
         m_motors.set (vel);
       else if (m_encoder1.getPosition() > limitDown)
         m_motors.set (-vel);
+    }
+
+    if (m_encoder1.getPosition() > limitDown) {
+      m_motors.set (-vel);
     }
 
     m_motors.set (0);
@@ -76,6 +92,7 @@ public class ArmJoint extends SubsystemBase {
   public void periodic() {}
 
   public void stopMotors(){
-    m_motors.set (0);
+    m_motor1.stopMotor();
+    m_motor2.stopMotor();
   }
 }

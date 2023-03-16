@@ -26,7 +26,7 @@ public class DriveTrain extends SubsystemBase {
   private final CANSparkMax m_frontRight = new CANSparkMax(12,
     CANSparkMaxLowLevel.MotorType.kBrushless);
 
-  private final CANSparkMax m_rearRight = new CANSparkMax(3,
+  private final CANSparkMax m_rearRight = new CANSparkMax(6,
     CANSparkMaxLowLevel.MotorType.kBrushless);
 
   //MOTOR GROUPS
@@ -36,7 +36,6 @@ public class DriveTrain extends SubsystemBase {
   private final Timer m_timerForTest = new Timer ();
     
   private RelativeEncoder m_leftEncoder = m_frontLeft.getEncoder();
-  private RelativeEncoder m_rightEncoder = m_rearRight.getEncoder();
 
   private final AHRS m_gyro = new AHRS(SPI.Port.kMXP);
 
@@ -49,10 +48,11 @@ public class DriveTrain extends SubsystemBase {
 
   private final double P = 1.00, I = 1.00, D = 1.00;
   private double error, integral, derivative, rcw, previous_error;
+
+  private final double posAt90 = 6.6;
   
   public DriveTrain () {
     m_rightMotors.setInverted(true);
-
     this.setDefaultCommand(new MoveDrivetrain(this));
   }
 
@@ -62,28 +62,24 @@ public class DriveTrain extends SubsystemBase {
   public void arcadeDrive (double speed, double rot) {
     m_drive.arcadeDrive(speed, rot);
   }
-
-  public void stop () {
-    m_drive.arcadeDrive(0, 0);
-  }
-
-  private double encodersDis () {
-    double pastPos = m_leftEncoder.getPosition();
-
+ 
+  private double encodersDis (double pos) {
     double dis = 0.00;
+    double circumference = Math.PI * 6 * 2.54;
 
-    double pos = m_leftEncoder.getPosition();
-    dis = (pos - pastPos) * 6 * 2.54 * Math.PI;
+    dis = pos * circumference / 7.579;
 
     return dis;
   }
 
   public void testPID (double setPoint) {
-    m_drive.arcadeDrive(pid.calculate(encodersDis (), setPoint), 0);
+    double pos = this.m_leftEncoder.getPosition();
+    m_drive.arcadeDrive(pid.calculate(encodersDis (pos), setPoint), 0);
   }
 
   public void testOtherPID (double setPoint) {
-    error = setPoint - encodersDis();
+    double pos = this.m_leftEncoder.getPosition();
+    error = setPoint - encodersDis(pos);
     integral += (error * .01);
     derivative = (error - previous_error) / .01;
     rcw = P * error + I * integral + D * derivative;
@@ -128,31 +124,41 @@ public class DriveTrain extends SubsystemBase {
 
   public void moveToDistance (double setPoint, double v, double t) {
     double pastPos = m_leftEncoder.getPosition();
+    double vel = v;
     
     m_timer.reset ();
     m_timer.start ();
 
     double dis = 0.00;
+    
+    if (setPoint < 0) {
+      if (vel > 0)
+        vel = -vel;
 
-    while (m_timer.get () <= t && dis < setPoint) {
-      double pos = m_leftEncoder.getPosition();
-      dis = (pos - pastPos) * 6 * 2.54 * Math.PI;
+      while (m_timer.get () <= t && dis > setPoint) {
+        double pos = m_leftEncoder.getPosition();
+        dis = encodersDis(pos - pastPos);
 
-      m_drive.arcadeDrive(v, 0);
+        m_drive.arcadeDrive(vel, 0);
+      }
+    } else if (setPoint > 0) {
+      while (m_timer.get () <= t && dis < setPoint) {
+        double pos = m_leftEncoder.getPosition();
+        dis = encodersDis (pos - pastPos);
+
+        m_drive.arcadeDrive(vel, 0);
+      }
     }
 
-    m_drive.arcadeDrive(0, 0);
+    m_drive.stopMotor();
   }
 
   public void testEncoder (){
     double pos_l = m_leftEncoder.getPosition();
-    double pos_r = m_rightEncoder.getPosition();
 
-    String l = String.valueOf(pos_l);
-    String r = String.valueOf(pos_r);
+    String l = "Drive: " + String.valueOf(pos_l);
     
-    SmartDashboard.putString("DB/String 1", l);
-    SmartDashboard.putString("DB/String 2", r); 
+    SmartDashboard.putString("DB/String 1", l); 
   }
 
   public void resetNavX () {
@@ -161,12 +167,62 @@ public class DriveTrain extends SubsystemBase {
     m_gyro.calibrate();
   }
 
+  public void pastMove (double setPoint, double v, double t) {
+    double pastPos = m_leftEncoder.getPosition();
+    double vel = v;
+    
+    m_timer.reset ();
+    m_timer.start ();
+
+    double dis = 0.00;
+    while (m_timer.get () <= t && dis < setPoint) {
+      double pos = m_leftEncoder.getPosition();
+      dis = (pos - pastPos) * 7.62;
+
+      m_drive.arcadeDrive(vel, 0);
+    }
+
+    m_drive.stopMotor();
+  }
+
   public void testNavx () {
     double pitch = m_gyro.getPitch();
     
     String p = "Pitch: " + String.valueOf(pitch);
     
     SmartDashboard.putString("DB/String 0", p);
+  }
+
+  public void rotateAngle (int angle, double v) {
+    double vel = Math.abs (v);
+
+    if (angle > 0) {
+      double newRevs = (angle * posAt90) / 90.00;
+      double pastPos = m_leftEncoder.getPosition();
+      double newPos = pastPos + newRevs;
+      
+      while (m_leftEncoder.getPosition() < newPos) {
+        m_leftMotors.set(vel);
+        m_rightMotors.set(-vel);
+        m_drive.feed();
+      }
+
+      m_drive.stopMotor();
+
+    } else if (angle < 0) {
+      double newRevs = (angle * posAt90) / 90.00;
+      double pastPos = m_leftEncoder.getPosition();
+      double newPos = pastPos + newRevs;
+      
+      while (m_leftEncoder.getPosition() > newPos) {
+        m_leftMotors.set(-vel);
+        m_rightMotors.set(vel);
+        m_drive.feed();
+      }
+    }
+ 
+    m_drive.stopMotor();
+    
   }
 
   public double getPitch () {
@@ -181,6 +237,10 @@ public class DriveTrain extends SubsystemBase {
       m_drive.arcadeDrive(vel, 0);
     }
 
+    m_drive.stopMotor();
+  }
+
+  public void stopMotors () {
     m_drive.stopMotor();
   }
 }
