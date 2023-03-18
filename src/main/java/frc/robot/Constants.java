@@ -8,6 +8,7 @@ public static class DrivetrainConstants {
     public static final double kEncoderResolution = 1024;
     //SPEED
     public static final double kSensibilityPercent = 0.85;
+    public static final double kRevPerMeters = 10.75/((6 * 2.54 * Math.PI)/100.00);
 }
   //MOVILE STAGE
   public static class MStageConstants {

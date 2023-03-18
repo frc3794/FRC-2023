@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.cameraserver.CameraServer;
 
 public class Robot extends TimedRobot {
   
@@ -20,6 +21,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_robotContainer = new RobotContainer();
+    CameraServer.startAutomaticCapture();
   }
  @Override
   public void robotPeriodic() {

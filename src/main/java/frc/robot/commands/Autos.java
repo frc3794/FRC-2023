@@ -33,34 +33,34 @@ public final class Autos {
   }
 
   private void level0 () { // Out of Zone
-    this.m_drivetrain.pastMove (208, 0.5, 14.5);
-    //this.m_drivetrain.moveToDistance(491, 0.5, 14.7);
-    /*this.m_drivetrain.moveToDistance(120, 0.5, 7);
-    new WaitCommand(1);
-    this.m_drivetrain.moveToDistance(-120, 0.5, 7);*/
+    this.m_drivetrain.pastMove (218, 0.5, 7.25);
+    this.m_drivetrain.pastMove (224, 0.35, 7.25);
   }
 
   private void level1 () { // Charging station
-    this.m_drivetrain.moveToDistance(100, 0.5, 9.7);
+    this.m_drivetrain.pastMove(218, 0.5, 14.5);
     //this.m_armJoint.watchMe(0.4, 5);
   }
 
   private void level2 () { // Cubito y Charging Station
-    this.m_drivetrain.moveToDistance(-100, 0.5, 5);
-    this.m_drivetrain.moveToDistance(200, 0.5, 9.7);
+    this.m_claw.closeClaw();
+    this.m_armJoint.extendArm(1);
+    this.m_drivetrain.moveToDis(1.65, 0.5, 4);
+    this.m_claw.openClaw();
+    this.m_drivetrain.moveToDis(-1, 0.5, 4);
+    this.m_drivetrain.rotateAngle(180, 0.25);
+    this.m_drivetrain.moveToDis(0.65, 5, 5);
+    this.m_drivetrain.pastMove(218, 0.5, 8); 
   }
 
   private void level3 () { // Cubito  del piso y Charging
-    this.m_claw.openClaw();
-    this.m_drivetrain.moveToDistance(100, 0.75, 5);
     this.m_claw.closeClaw();
-    this.m_drivetrain.rotateAngle(180, 0.5);
-    this.m_drivetrain.moveToDistance(100, 0.5, 5);
-    this.m_armJoint.extendArm(1);
+    this.m_armJoint.extendArm (1);
+    this.m_drivetrain.moveToDis2(0.55, 0.5, 5, 1);
     this.m_claw.openClaw();
-    this.m_claw.closeClaw();
+    this.m_drivetrain.moveToDis2(-0.325, 0.4, 4, 0.5);
     this.m_armJoint.extendArm(0);
-
-    this.m_drivetrain.moveToDistance(-200, 0.5, 5);
+    this.m_drivetrain.moveToDis(-0.325, 0.4, 4);
+    this.m_drivetrain.moveToDis(-1.2, 0.5, 4);
   }
 }

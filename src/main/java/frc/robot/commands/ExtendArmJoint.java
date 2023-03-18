@@ -48,10 +48,11 @@ public class ExtendArmJoint extends CommandBase {
 
       if (pressed) {
         m_armJoint.extendArm(extend);
-        if (extend == 0)
+        if (extend == 0) {
           pressed = false;
+        }
       }
-    }    
+    }
   }
 
   @Override

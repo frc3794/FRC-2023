@@ -47,6 +47,15 @@ public class ArmJoint extends SubsystemBase {
       m_motors.set (0);
   }
 
+  public void brake (boolean x) {
+    if (x) {
+      if (m_encoder1.getPosition() > limitBack)
+        m_motors.set(0);
+      else
+        m_motors.set (0.07);
+    }
+  }
+
   public void flexArmJoint (double speed){
     if (m_encoder1.getPosition() > limitBack)
       m_motors.set(-speed);
