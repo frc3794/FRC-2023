@@ -1,91 +1,49 @@
+// Copyright (c) FIRST and other WPILib contributors.
+// Open Source Software; you can modify and/or share it under the terms of
+// the WPILib BSD license file in the root directory of this project.
+
 package frc.robot.subsystems;
 
+import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel;
 
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.DrivetrainConstants;
+import com.revrobotics.RelativeEncoder;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.commands.MoveDrivetrain;
 
-import com.revrobotics.CANSparkMaxLowLevel;
-import com.revrobotics.RelativeEncoder;
-
-public class DriveTrain extends SubsystemBase {
- //MOTORS
-  private final CANSparkMax m_frontLeft = new CANSparkMax(6,
-    CANSparkMaxLowLevel.MotorType.kBrushless);
-    
-  private final CANSparkMax m_rearLeft = new CANSparkMax(1,
-    CANSparkMaxLowLevel.MotorType.kBrushless);
-
-  private final CANSparkMax m_frontRight = new CANSparkMax(5,
-    CANSparkMaxLowLevel.MotorType.kBrushless);
-
-  private final CANSparkMax m_rearRight = new CANSparkMax(4,
-    CANSparkMaxLowLevel.MotorType.kBrushless);
-
-  //MOTOR GROUPS
-  private final MotorControllerGroup m_leftMotors = new MotorControllerGroup(m_frontLeft, m_rearLeft);
-  private final MotorControllerGroup m_rightMotors = new MotorControllerGroup(m_frontRight, m_rearRight);
-    
-  private RelativeEncoder m_leftEncoder = m_frontLeft.getEncoder();
-  private RelativeEncoder m_rightEncoder = m_rearRight.getEncoder();
-
-  private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
-
-  private final Timer m_timer = new Timer ();
+public class Drivetrain extends SubsystemBase {
   
-  public DriveTrain () {
-    m_rightMotors.setInverted(true);
-
-    this.setDefaultCommand(new MoveDrivetrain(this));
-  }
-
-  @Override
-  public void periodic() {}
-
-  public void arcadeDrive (double speed, double rot) {
-    m_drive.arcadeDrive(speed, rot);
-  }
-
-  public void stop () {
-    m_drive.arcadeDrive(0, 0);
-  }
-
-  public void moveToDistance (double setPoint, double v, double t) {
-    double vel = v;
-
-    m_timer.reset ();
-    m_timer.start ();
-
-    m_drive.arcadeDrive(vel, 0);
+  private final CANSparkMax m_frontLeft = new CANSparkMax(DrivetrainConstants.kMotorPorts[0],
+    CANSparkMaxLowLevel.MotorType.kBrushless);
     
-    double leftVel = m_leftEncoder.getVelocity() / 60.00;
-    double rightVel = m_rightEncoder.getVelocity() / 60.00;
+  private final CANSparkMax m_rearLeft = new CANSparkMax(DrivetrainConstants.kMotorPorts[1],
+    CANSparkMaxLowLevel.MotorType.kBrushless);
 
-    double leftDis = leftVel * 7.62;
-    double rightDis = rightVel * 7.62;
+  private final CANSparkMax m_frontRight = new CANSparkMax(DrivetrainConstants.kMotorPorts[2],
+    CANSparkMaxLowLevel.MotorType.kBrushless);
+    
+  private final CANSparkMax m_rearRight = new CANSparkMax(DrivetrainConstants.kMotorPorts[3],
+    CANSparkMaxLowLevel.MotorType.kBrushless);
 
-    double timeTo = 0.00;
+  private RelativeEncoder m_rleftEncoder;
+  private RelativeEncoder m_rrightEncoder;
+  private RelativeEncoder m_fleftEncoder;
+  private RelativeEncoder m_frightEncoder;
 
-    timeTo = setPoint / leftDis;
-    while (timeTo > t) {
-      vel = vel + 0.1;
+  private final Timer timer = new Timer();
 
-      leftVel = m_leftEncoder.getVelocity() / 60.00;
-      rightVel = m_rightEncoder.getVelocity() / 60.00;
-  
-      leftDis = leftVel * 7.62;
-      rightDis = rightVel * 7.62;
+  private final AHRS gyro = new AHRS (SPI.Port.kMXP);
 
-      timeTo = setPoint / leftDis;
-    }
+  private final MecanumDrive m_drive =
+  new MecanumDrive(m_frontLeft, m_rearLeft, m_frontRight, m_rearRight);
 
-    while (m_timer.get () <= timeTo) {
-      m_drive.arcadeDrive(vel, 0);
-    }
-
-    m_drive.arcadeDrive(0, 0);
+  public Drivetrain () {
+  this.setDefaultCommand(new MoveDrivetrain());
   }
+
 }
