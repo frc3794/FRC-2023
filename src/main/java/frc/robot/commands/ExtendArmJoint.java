@@ -35,11 +35,11 @@ public class ExtendArmJoint extends CommandBase {
     double m_armJointMovement = m_subSystemController.getRightY();
     double m_movArm = m_subSystemController.getLeftY();
 
-    if (Math.abs (m_armJointMovement) > 0.2){
+    if (Math.abs (m_armJointMovement) > 0.2)
       m_armJoint.extendArmJoint(Math.abs (m_armJointMovement) * this.speed);
-    } else if (Math.abs(m_movArm) > 0.2) {
+    else if (Math.abs(m_movArm) > 0.2)
       m_armJoint.stopMotors();
-    } else {
+    else {
       if (m_btnA.getAsBoolean()) {
         extend = 0; pressed = true;
       } else if (m_btnY.getAsBoolean()) {
@@ -48,9 +48,7 @@ public class ExtendArmJoint extends CommandBase {
 
       if (pressed) {
         m_armJoint.extendArm(extend);
-        if (extend == 0) {
-          pressed = false;
-        }
+        if (extend == 0) pressed = false;
       }
     }
   }

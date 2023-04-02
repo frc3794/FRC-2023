@@ -12,18 +12,20 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import frc.robot.Constants.ArmJointConstants;
 import frc.robot.commands.ExtendArmJoint;
 
 public class ArmJoint extends SubsystemBase {
+  private final ArmJointConstants kConstants = new Constants.ArmJointConstants();
 
-  private final double defaultSpeed = 0.15;
   private double limitExtend;
   private double limitBack;
 
-  private final CANSparkMax m_motor1 = new CANSparkMax(2,
+  private final CANSparkMax m_motor1 = new CANSparkMax(kConstants.kMotorPorts[0],
     CANSparkMaxLowLevel.MotorType.kBrushless);
     
-  private final CANSparkMax m_motor2 = new CANSparkMax(1,
+  private final CANSparkMax m_motor2 = new CANSparkMax(kConstants.kMotorPorts[1],
     CANSparkMaxLowLevel.MotorType.kBrushless);
 
   private final MotorControllerGroup m_motors = new MotorControllerGroup(m_motor1, m_motor2);
@@ -36,8 +38,8 @@ public class ArmJoint extends SubsystemBase {
 
   public ArmJoint() {
     this.setDefaultCommand(new ExtendArmJoint (this));
-    limitExtend = m_encoder1.getPosition() + 3.2;
-    limitBack = m_encoder1.getPosition() + 0.1;
+    limitExtend = m_encoder1.getPosition() + kConstants.kLimitUp;
+    limitBack = m_encoder1.getPosition() + kConstants.kLimitDown;
   }
 
   public void extendArmJoint(double speed){
@@ -47,28 +49,12 @@ public class ArmJoint extends SubsystemBase {
       m_motors.set (0);
   }
 
-  public void brake (boolean x) {
-    if (x) {
-      if (m_encoder1.getPosition() > limitBack)
-        m_motors.set(0);
-      else
-        m_motors.set (0.07);
-    }
-  }
-
-  public void flexArmJoint (double speed){
-    if (m_encoder1.getPosition() > limitBack)
-      m_motors.set(-speed);
-    else
-      m_motors.set (0);
-  }
-
   public void extendArm (int dec) {
     int decEnc = 1;
     if (m_encoder1.getPosition() >= limitExtend)
       decEnc = 0;
 
-    m_motors.set(defaultSpeed * dec * decEnc);
+    m_motors.set(kConstants.kDefaultSpeed * dec * decEnc);
   }
 
   public void testEncoder () {
@@ -78,7 +64,7 @@ public class ArmJoint extends SubsystemBase {
   }
 
   public void watchMe (double vel, double t) {
-    double limitUp = 10, limitDown = 6;
+    double limitUp = limitExtend, limitDown = limitBack + (kConstants.kLimitUp / 2.00);
     
     m_timer.reset ();
     m_timer.start ();
@@ -93,6 +79,8 @@ public class ArmJoint extends SubsystemBase {
     if (m_encoder1.getPosition() > limitDown) {
       m_motors.set (-vel);
     }
+
+    m_timer.stop ();
 
     m_motors.set (0);
   }

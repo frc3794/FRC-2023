@@ -1,30 +1,46 @@
 package frc.robot;
 
+import edu.wpi.first.math.util.Units;
+
 public final class Constants {
 
-public static class DrivetrainConstants {
-    public static final int[] kMotorPorts = {7, 0, 12, 3, 4, 5, 12, 13, 14, };
-    //ENCODERS
-    public static final double kEncoderResolution = 1024;
-    //SPEED
-    public static final double kSensibilityPercent = 0.85;
-    public static final double kRevPerMeters = 10.75/((6 * 2.54 * Math.PI)/100.00);
-}
-  //MOVILE STAGE
-  public static class MStageConstants {
-  public static final int kForwardLimit = 2;
-  public static final int kReverseLimit = 1;
-  public static final double kMovileStageSpeed = .4;
+  public static class DrivetrainConstants {
+    public final int[] kMotorPorts = {15, 7, 12, 6};
+    public final double kCircWheels = Units.inchesToMeters (6 * Math.PI);
+
+    public final double kToughBox = 8.46;
   }
-  //ARM JOINT
+
+  public static class IndexerConstants {
+    public final int[] kMotorPorts = {20, 21};
+  }
+
+  public static class ClawConstants {
+    public final int kPort = 0;
+  }
+
   public static class ArmJointConstants {
-    public static final int kArmJointLimit = 3;
-    public static final double kArmJointSpeed = .25;
+    public final int[] kMotorPorts = {2, 1};
+    public final double kLimitUp = 3.2;
+    public final double kLimitDown = 0.1;
+    public final double kDefaultSpeed = 0.15;
   }
-  //ELEVATOR
-  public static class ElevatorConstants {
-    public static double[] kEncoderLimits = {0, 10, 20};
-    public static final double kElevatorSpeed = .5;  
+  
+  public static class AutoConstants {
+    /*
+     * FP = First Position = Near the charge
+     * SP = Second Position = Near the load zone
+     * TP = Third Position = Out of the Zone
+    */
+
+    public final double kMChargeFP = Units.inchesToMeters(30);
+    public final double kMChargeSP = Units.inchesToMeters(66);
+    public final double kMChargeTP = Units.inchesToMeters(35);
+
+    public final double kMLoadFP = 1.5;
+
+    public final double kMOutFP = 3.5;
+    public final double kMOutSP = 4.5;
   }
   
 }

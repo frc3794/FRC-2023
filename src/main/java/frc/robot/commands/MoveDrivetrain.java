@@ -28,32 +28,24 @@ public class MoveDrivetrain extends CommandBase {
     double rightTrigger = Math.abs(m_controller.getRightTriggerAxis());
     double leftTrigger = Math.abs(m_controller.getLeftTriggerAxis());
 
-    if (rightTrigger > 0.2) {
-      fwd = rightTrigger;
-    } else if (leftTrigger > 0.2) {
-      fwd = -leftTrigger;
-    } else {
-      fwd = 0;
-    }
+    if (rightTrigger > 0.2) fwd = rightTrigger;
+    else if (leftTrigger > 0.2) fwd = -leftTrigger;
+    else fwd = 0;
 
     double rightJoystick = m_controller.getRightX();
     double leftJoystick = m_controller.getLeftX();
 
-    if (Math.abs(rightJoystick) > 0.2) {
-      rot = rightJoystick * 0.35;
-    } else if (Math.abs(leftJoystick) > 0.2) {
-      rot = leftJoystick;
-    } else {
-      rot = 0;
-    }
+    if (Math.abs(rightJoystick) > 0.2) rot = rightJoystick * 0.35;
+    else if (Math.abs(leftJoystick) > 0.2) rot = leftJoystick;
+    else rot = 0;
 
     fwd *= 0.67;
 
     m_drivetrain.arcadeDrive(fwd, -rot);
 
-    //m_drivetrain.testEncoder();
+    //this.m_drivetrain.testMotors();
 
-    //m_drivetrain.testMotors();
+    //m_drivetrain.testEncoder();
   }
 
   @Override
